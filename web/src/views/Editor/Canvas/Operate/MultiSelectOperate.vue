@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div 
     class="multi-select-operate"
     :style="{
@@ -55,7 +55,7 @@ const range = ref({
   maxY: 0,
 })
 
-// 根据多选元素整体在画布中的范围，计算边框线和缩放点的位置信息
+// 根据多选元素整体在画布中的范围，计算Border线和Zoom点的Position信息
 const width = computed(() => (range.value.maxX - range.value.minX) * canvasScale.value)
 const height = computed(() => (range.value.maxY - range.value.minY) * canvasScale.value)
 const { resizeHandlers, borderLines } = useCommonOperate(width, height)
@@ -67,7 +67,7 @@ const setRange = () => {
 }
 watchEffect(setRange)
 
-// 禁用多选状态下缩放：仅未旋转的图片和形状可以在多选状态下缩放
+// 禁用多选状态下Zoom：仅未Rotation的Pictures和Shapes可以在多选状态下Zoom
 const disableResize = computed(() => {
   return localActiveElementList.value.some(item => {
     if (

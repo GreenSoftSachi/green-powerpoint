@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref, watch, type ShallowRef } from 'vue'
+﻿import { onMounted, onUnmounted, ref, watch, type ShallowRef } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useSlidesStore } from '@/store'
 
@@ -9,7 +9,7 @@ export default (wrapRef?: ShallowRef<HTMLElement | null>) => {
   const slideWidth = ref(0)
   const slideHeight = ref(0)
 
-  // 计算和更新幻灯片内容的尺寸（按比例自适应屏幕）
+  // 计算和更新Slide内容的尺寸（按比例Fit to Window）
   const setSlideContentSize = () => {
     const slideWrapRef = wrapRef?.value || document.body
     const winWidth = slideWrapRef.clientWidth

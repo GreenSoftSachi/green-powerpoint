@@ -1,11 +1,11 @@
-interface ImageSize {
+﻿interface ImageSize {
   width: number
   height: number
 }
 
 /**
- * 获取图片的原始宽高
- * @param src 图片地址
+ * 获取Pictures的原始宽高
+ * @param src Pictures地址
  */
 export const getImageSize = (src: string): Promise<ImageSize> => {
   return new Promise(resolve => {
@@ -34,8 +34,8 @@ export const getImageSize = (src: string): Promise<ImageSize> => {
 }
 
 /**
- * 读取图片文件的dataURL
- * @param file 图片文件
+ * 读取Pictures文件的dataURL
+ * @param file Pictures文件
  */
 export const getImageDataURL = (file: File): Promise<string> => {
   return new Promise(resolve => {

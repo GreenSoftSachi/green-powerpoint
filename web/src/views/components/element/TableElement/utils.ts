@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'vue'
+﻿import type { CSSProperties } from 'vue'
 import type { PPTElementOutline, TableCellStyle } from '@/types/slides'
 
 export const getTableRowHeight = (rowHeights: number[] | undefined, rowIndex: number, cellMinHeight: number) => {
@@ -6,8 +6,8 @@ export const getTableRowHeight = (rowHeights: number[] | undefined, rowIndex: nu
 }
 
 /**
- * 计算单元格样式
- * @param style 单元格文本样式原数据
+ * 计算CellStyle
+ * @param style Cell文本Style原数据
  */
 export const getCellStyle = (outline: PPTElementOutline, style?: TableCellStyle): CSSProperties => {
   return {
@@ -19,8 +19,8 @@ export const getCellStyle = (outline: PPTElementOutline, style?: TableCellStyle)
 }
 
 /**
- * 计算单元格文本样式
- * @param style 单元格文本样式原数据
+ * 计算Cell文本Style
+ * @param style Cell文本Style原数据
  */
 export const getTextStyle = (cellMinHeight: number, style?: TableCellStyle): CSSProperties => {
   const {

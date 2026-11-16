@@ -1,4 +1,4 @@
-import { computed, ref, watchEffect, type Ref } from 'vue'
+﻿import { computed, ref, watchEffect, type Ref } from 'vue'
 import type { PPTElement, Slide } from '@/types/slides'
 import { isSameLineConnection, resolveLineConnections } from '@/utils/element'
 
@@ -10,7 +10,7 @@ const shouldResolveLineConnections = (elements: PPTElement[], previousElements: 
     if (element === previous) return false
     if (element.id !== previous.id || element.type !== previous.type) return true
 
-    // 锚点只依赖形状外框，内部路径和关键点变化不影响连接。
+    // 锚点只依赖Shapes外框，内部路径和关键点变化不影响连接。
     if (element.type === 'shape' && previous.type === 'shape') {
       return element.left !== previous.left || element.top !== previous.top ||
         element.width !== previous.width || element.height !== previous.height || element.rotate !== previous.rotate

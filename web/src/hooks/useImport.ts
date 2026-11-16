@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+﻿import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { parse, type Shape, type Element, type ChartItem, type BaseElement } from 'pptxtojson'
 import { nanoid } from 'nanoid'
@@ -329,7 +329,7 @@ export default () => {
 
   const exporting = ref(false)
 
-  // 导入JSON文件
+  // ImportJSON文件
   const importJSON = (files: FileList | File[], cover = false) => {
     const file = files[0]
 
@@ -362,7 +362,7 @@ export default () => {
     reader.readAsText(file)
   }
 
-  // 导入pptist文件
+  // Importpptist文件
   const importSpecificFile = (files: FileList | File[], cover = false) => {
     const file = files[0]
 
@@ -606,8 +606,8 @@ export default () => {
     by: number, // B 相对 A 的 y (oy)
     bw: number, // B 的宽
     bh: number, // B 的高
-    ak: number, // A 的旋转角度（度，正顺时针）
-    bk: number, // B 的旋转角度（度，正顺时针）
+    ak: number, // A 的Rotation Angle（度，正顺时针）
+    bk: number, // B 的Rotation Angle（度，正顺时针）
   ) => {
     const aRadians = ak * (Math.PI / 180)
     const aCos = Math.cos(aRadians)
@@ -645,7 +645,7 @@ export default () => {
     return { x: minX, y: minY, globalRotation }
   }
 
-  // 导入PPTX文件
+  // ImportPPTX文件
   const importPPTXFile = (files: FileList | File[], options?: { cover?: boolean; fixedViewport?: boolean }) => {
     const defaultOptions = {
       cover: false,

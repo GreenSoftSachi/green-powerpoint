@@ -1,4 +1,4 @@
-import { computed, ref, type Ref } from 'vue'
+﻿import { computed, ref, type Ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useKeyboardStore, useMainStore, useSlidesStore } from '@/store'
 import type { PPTElement, PPTLineElement } from '@/types/slides'
@@ -19,7 +19,7 @@ export default (elementList: Ref<PPTElement[]>) => {
   const { addHistorySnapshot } = useHistorySnapshot()
   const lineConnectionPoint = ref<LineConnectionPoint>()
 
-  // 拖拽线条端点
+  // 拖拽Lines端点
   const dragLineElement = (e: MouseEvent, element: PPTLineElement, command: OperateLineHandlers) => {
     let isMouseDown = true
     const isEndpoint = command === OperateLineHandlers.START || command === OperateLineHandlers.END
@@ -28,7 +28,7 @@ export default (elementList: Ref<PPTElement[]>) => {
 
     const startPageX = e.pageX
     const startPageY = e.pageY
-    // 预览只改变本地线条，从 store 读取目标形状可避免每帧重算锚点。
+    // 预览只改变本地Lines，从 store 读取目标Shapes可避免每帧重算锚点。
     const connectionPoints = computed(() => getLineConnectionPoints(currentSlide.value.elements, hiddenElementIdList.value))
 
     const adsorptionPoints: AdsorptionPoint[] = []
@@ -46,7 +46,7 @@ export default (elementList: Ref<PPTElement[]>) => {
       { x: canvasWidth, y: canvasHeight },
     )
 
-    // 获取所有线条以外的未旋转的元素的8个缩放点作为吸附位置
+    // 获取所有Lines以外的未Rotation的元素的8个Zoom点作为SnapPosition
     for (let i = 0; i < elementList.value.length; i++) {
       const _element = elementList.value[i]
       if (_element.type === 'line' || _element.rotate || hiddenElementIdList.value.includes(_element.id)) continue
@@ -92,7 +92,7 @@ export default (elementList: Ref<PPTElement[]>) => {
       const moveX = (currentPageX - startPageX) / canvasScale.value
       const moveY = (currentPageY - startPageY) / canvasScale.value
       
-      // 线条起点和终点在编辑区域中的位置
+      // Lines起点和终点在编辑区域中的Position
       let startX = element.left + element.start[0]
       let startY = element.top + element.start[1]
       let endX = element.left + element.end[0]
@@ -109,8 +109,8 @@ export default (elementList: Ref<PPTElement[]>) => {
       let c2Y = element.top + c2[1]
       let connection: LineConnectionPoint | undefined
 
-      // 拖拽起点或终点的位置
-      // 水平和垂直方向上有吸附
+      // 拖拽起点或终点的Position
+      // Horizontal和Vertical方From Top有Snap
       if (command === OperateLineHandlers.START) {
         startX = startX + moveX
         startY = startY + moveY
@@ -187,7 +187,7 @@ export default (elementList: Ref<PPTElement[]>) => {
 
       lineConnectionPoint.value = connection
 
-      // 计算更新起点和终点基于自身元素位置的坐标
+      // 计算更新起点和终点基于自身元素Position的坐标
       const minX = Math.min(startX, endX)
       const minY = Math.min(startY, endY)
       const maxX = Math.max(startX, endX)
@@ -262,7 +262,7 @@ export default (elementList: Ref<PPTElement[]>) => {
       lineConnectionPoint.value = undefined
 
       if (!hasMoved) return
-      // 回到按下位置时直接取消，避免重新吸附改变原始端点和控制点。
+      // 回到按下Position时直接Cancel，避免重新Snap改变原始端点和控制点。
       if (isAtStart) {
         elementList.value = elementList.value.map(el => el.id === element.id ? element : el)
         return

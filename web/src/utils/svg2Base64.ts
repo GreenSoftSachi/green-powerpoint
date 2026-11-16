@@ -1,4 +1,4 @@
-// svg转base64图片，参考：https://github.com/scriptex/svg64
+﻿// svg转base64Pictures，参考：https://github.com/scriptex/svg64
 
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
 const PREFIX = 'data:image/svg+xml;base64,'

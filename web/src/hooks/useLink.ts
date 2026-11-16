@@ -1,4 +1,4 @@
-import { useSlidesStore } from '@/store'
+﻿import { useSlidesStore } from '@/store'
 import type { PPTElement, PPTElementLink } from '@/types/slides'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
 import message from '@/utils/message'
@@ -11,7 +11,7 @@ export default () => {
   const setLink = (handleElement: PPTElement, link: PPTElementLink) => {
     const linkRegExp = /^(https?):\/\/[\w\-]+(\.[\w\-]+)+([\w\-.,@?^=%&:\/~+#]*[\w\-@?^=%&\/~+#])?$/
     if (link.type === 'web' && !linkRegExp.test(link.target)) {
-      message.error('不是正确的网页链接地址')
+      message.error('Invalid web link URL')
       return false
     }
     if (link.type === 'slide' && !link.target) {

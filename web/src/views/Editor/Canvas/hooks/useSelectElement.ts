@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+﻿import type { Ref } from 'vue'
 import { uniq } from 'lodash'
 import { storeToRefs } from 'pinia'
 import { useMainStore, useKeyboardStore } from '@/store'
@@ -19,7 +19,7 @@ export default (
 
     // 如果目标元素当前未被选中，则将他设为选中状态
     // 此时如果按下Ctrl键或Shift键，则进入多选状态，将当前已选中的元素和目标元素一起设置为选中状态，否则仅将目标元素设置为选中状态
-    // 如果目标元素是分组成员，需要将该组合的其他元素一起设置为选中状态
+    // 如果目标元素是分组成员，需要将该Group的其他元素一起设置为选中状态
     if (!activeElementIdList.value.includes(element.id)) {
       let newActiveIdList: string[] = []
 
@@ -40,10 +40,10 @@ export default (
       mainStore.setHandleElementId(element.id)
     }
 
-    // 已选中元素上按下 Ctrl 且允许拖拽时，先不立刻取消选中
-    // 因为 Ctrl+点击 和 Ctrl+拖拽复制 共用同一 mousedown
-    // 所以需要先记录按下位置，等 mouseup 时再判断这次操作到底是”点击”还是”拖拽”
-    // 点击时在 mouseup 再取消选中，拖拽时交给拖拽逻辑处理
+    // 已选中元素上按下 Ctrl 且允许拖拽时，先不立刻Cancel选中
+    // 因为 Ctrl+点击 和 Ctrl+拖拽Copy 共用同一 mousedown
+    // 所以需要先记录按下Position，等 mouseup 时再判断这次操作到底是”点击”还是”拖拽”
+    // 点击时在 mouseup 再Cancel选中，拖拽时交给拖拽逻辑处理
     else if (ctrlKeyState.value && startMove) {
       const startPageX = e instanceof MouseEvent ? e.pageX : e.changedTouches[0].pageX
       const startPageY = e instanceof MouseEvent ? e.pageY : e.changedTouches[0].pageY
@@ -75,9 +75,9 @@ export default (
       }
     }
 
-    // 如果目标元素已被选中，且按下了Ctrl键或Shift键，则取消其被选中状态
-    // 除非目标元素是最后的一个被选中元素，或者目标元素所在的组合是最后一组选中组合
-    // 如果目标元素是分组成员，需要将该组合的其他元素一起取消选中状态
+    // 如果目标元素已被选中，且按下了Ctrl键或Shift键，则Cancel其被选中状态
+    // 除非目标元素是最后的一个被选中元素，或者目标元素所在的Group是最后一组选中Group
+    // 如果目标元素是分组成员，需要将该Group的其他元素一起Cancel选中状态
     else if (ctrlOrShiftKeyActive.value) {
       let newActiveIdList: string[] = []
 

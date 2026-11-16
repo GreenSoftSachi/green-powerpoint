@@ -1,4 +1,4 @@
-import { type Ref, type ShallowRef, ref } from 'vue'
+﻿import { type Ref, type ShallowRef, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useKeyboardStore, useMainStore } from '@/store'
 import type { PPTElement } from '@/types/slides'
@@ -33,7 +33,7 @@ export default (elementList: Ref<PPTElement[]>, viewportRef: ShallowRef<HTMLElem
     const left = (startPageX - viewportRect.x) / canvasScale.value
     const top = (startPageY - viewportRect.y) / canvasScale.value
 
-    // 确定框选的起始位置和其他默认值初始化
+    // OK框选的起始Position和其他默认值初始化
     mouseSelection.value = {
       top: top,
       left: left,
@@ -58,7 +58,7 @@ export default (elementList: Ref<PPTElement[]>, viewportRef: ShallowRef<HTMLElem
       if ( width < minSelectionRange || height < minSelectionRange ) return
       
       // 计算鼠标框选（移动）的方向
-      // 按四个象限的位置区分，如右下角为第四象限
+      // 按四个象限的Position区分，如右下角为第四象限
       let quadrant = 0
       if ( offsetWidth > 0 && offsetHeight > 0 ) quadrant = 4
       else if ( offsetWidth < 0 && offsetHeight < 0 ) quadrant = 2
@@ -146,11 +146,11 @@ export default (elementList: Ref<PPTElement[]>, viewportRef: ShallowRef<HTMLElem
           }
         }
 
-        // 被锁定或被隐藏的元素即使在范围内，也不需要设置为选中状态
+        // 被Lock或被Hide的元素即使在范围内，也不需要设置为选中状态
         if (isInclude && !element.lock && !hiddenElementIdList.value.includes(element.id)) inRangeElementList.push(element)
       }
 
-      // 如果范围内有组合元素的成员，需要该组全部成员都处在范围内，才会被设置为选中状态
+      // 如果范围内有Group元素的成员，需要该组All Slides成员都处在范围内，才会被设置为选中状态
       inRangeElementList = inRangeElementList.filter(inRangeElement => {
         if (inRangeElement.groupId) {
           const inRangeElementIdList = inRangeElementList.map(inRangeElement => inRangeElement.id)

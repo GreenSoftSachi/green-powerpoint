@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="table-cell-editor" ref="editorRef"></div>
 </template>
 
@@ -67,7 +67,7 @@ const focus = (coords?: { left: number; top: number }) => {
     if (position) {
       const { state } = editorView
       const tr = state.tr.setSelection(TextSelection.near(state.doc.resolve(position.pos)))
-      // 定位事务会清空 storedMarks，空单元格仍需保留预设的后续输入格式。
+      // 定位事务会清空 storedMarks，空Cell仍需保留预设的后续输入格式。
       if (!state.doc.textContent && state.storedMarks) tr.setStoredMarks(state.storedMarks)
       editorView.dispatch(tr)
     }
@@ -82,7 +82,7 @@ const isAtBoundary = (position: 'start' | 'end') => {
 }
 defineExpose({ focus, applyTextAttrs, replaceText, syncTextAttrs, isAtBoundary })
 
-// 内部撤销只同步内容，不再生成项目快照；空历史也不向全局撤销回退。
+// 内部Undo只同步内容，不再生成项目快照；空历史也不向全局Undo回退。
 const undoText: Command = (state, dispatch) => {
   undo(state, tr => dispatch?.(tr.setMeta('tableTextHistory', true)))
   return true
@@ -128,7 +128,7 @@ watch([() => props.value, () => props.cachedState], ([value, cachedState]) => {
     }
     if (value === editorValue || parseTableText(value).eq(editorView.state.doc)) return
   }
-  // 外部替换内容或全局回滚后，旧历史不再适用于当前单元格。
+  // 外部Replace内容或全局回滚后，旧历史不再适用于当前Cell。
   editorView.updateState(createState())
   syncEditorState()
   syncTextAttrs()

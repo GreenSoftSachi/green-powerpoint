@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div 
     class="canvas" 
     ref="canvasRef"
@@ -209,7 +209,7 @@ const { updateSlideIndex } = useSlideHandler()
 const { createTextElement, createShapeElement } = useCreateElement()
 
 // 组件渲染时，如果存在元素焦点，需要清除
-// 这种情况存在于：有焦点元素的情况下进入了放映模式，再退出时，需要清除原先的焦点（因为可能已经切换了页面）
+// 这种情况存在于：有焦点元素的情况下进入了放映模式，再退出时，需要清除原先的焦点（因为可能已经Transition了页面）
 onMounted(() => {
   if (activeElementIdList.value.length) {
     nextTick(() => mainStore.setActiveElementIdList([]))
@@ -240,7 +240,7 @@ const handleDblClick = (e: MouseEvent) => {
   createTextElement({
     left,
     top,
-    width: 200 / canvasScale.value, // 除以 canvasScale 是为了与点击选区创建的形式保持相同的宽度
+    width: 200 / canvasScale.value, // 除以 canvasScale 是为了与点击选区创建的形式保持相同的Width
     height: 0,
   })
 }
@@ -263,7 +263,7 @@ const throttleUpdateSlideIndex = throttle(updateSlideIndex, 300, { leading: true
 const handleMousewheelCanvas = (e: WheelEvent) => {
   e.preventDefault()
 
-  // 按住Ctrl键时：缩放画布
+  // 按住Ctrl键时：Zoom画布
   if (ctrlKeyState.value) {
     if (e.deltaY > 0) throttleScaleCanvas('-')
     else if (e.deltaY < 0) throttleScaleCanvas('+')
@@ -275,7 +275,7 @@ const handleMousewheelCanvas = (e: WheelEvent) => {
   }
 }
 
-// 开关标尺
+// 开关Ruler
 const toggleRuler = () => {
   mainStore.setRulerState(!showRuler.value)
 }
@@ -283,13 +283,13 @@ const toggleRuler = () => {
 // 开关浮动菜单
 const toggleBubbleMenu = () => {
   mainStore.setBubbleMenuState(!showBubbleMenu.value)
-  message.success(`元素气泡菜单已${showBubbleMenu.value ? '启用' : '禁用'}`)
+  message.success(`元素气泡菜单已${showBubbleMenu.value ? 'enabled' : 'disabled'}`)
 }
 
 // 在鼠标绘制的范围插入元素
 const { insertElementFromCreateSelection, formatCreateSelection } = useInsertFromCreateSelection(viewportRef)
 
-// 插入自定义任意多边形
+// 插入Custom任意多边形
 const insertCustomShape = (data: CreateCustomShapeData) => {
   const {
     start,
@@ -311,58 +311,58 @@ const insertCustomShape = (data: CreateCustomShapeData) => {
 const contextmenus = (): ContextmenuItem[] => {
   return [
     {
-      text: '粘贴',
+      text: 'Paste',
       subText: 'Ctrl + V',
       handler: pasteElement,
     },
     {
-      text: '全选',
+      text: 'Select All',
       subText: 'Ctrl + A',
       handler: selectAllElements,
     },
     {
-      text: '标尺',
+      text: 'Ruler',
       subText: showRuler.value ? '√' : '',
       handler: toggleRuler,
     },
     {
-      text: '网格线',
+      text: 'Gridlines',
       handler: () => mainStore.setGridLineSize(gridLineSize.value ? 0 : 50),
       children: [
         {
-          text: '无',
+          text: 'None',
           subText: gridLineSize.value === 0 ? '√' : '',
           handler: () => mainStore.setGridLineSize(0),
         },
         {
-          text: '小',
+          text: 'Small',
           subText: gridLineSize.value === 25 ? '√' : '',
           handler: () => mainStore.setGridLineSize(25),
         },
         {
-          text: '中',
+          text: 'Medium',
           subText: gridLineSize.value === 50 ? '√' : '',
           handler: () => mainStore.setGridLineSize(50),
         },
         {
-          text: '大',
+          text: 'Large',
           subText: gridLineSize.value === 100 ? '√' : '',
           handler: () => mainStore.setGridLineSize(100),
         },
       ],
     },
     {
-      text: '重置当前页',
+      text: 'Reset Background',
       handler: deleteAllElements,
     },
     {
-      text: '气泡菜单',
+      text: 'Floating Toolbar',
       subText: showBubbleMenu.value ? '√' : '',
       handler: toggleBubbleMenu,
     },
     { divider: true },
     {
-      text: '幻灯片放映',
+      text: 'Slide Show',
       subText: 'F5',
       handler: enterScreeningFromStart,
     },

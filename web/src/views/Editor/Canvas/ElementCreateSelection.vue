@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div 
     class="element-create-selection"
     ref="selectionRef"
@@ -7,7 +7,7 @@
   >
     <div :class="['selection', creatingElement?.type]" v-if="start && end" :style="position">
 
-      <!-- 绘制线条专用 -->
+      <!-- 绘制Lines专用 -->
       <svg
         v-if="creatingElement?.type === 'line' && lineData"
         overflow="visible" 
@@ -81,8 +81,8 @@ onMounted(() => {
   offset.value = { x, y }
 })
 
-// 鼠标拖动创建元素生成位置大小
-// 获取范围的起始位置和终点位置
+// 鼠标拖动创建元素生成Position大小
+// 获取范围的起始Position和终点Position
 const createSelection = (e: MouseEvent) => {
   let isMouseDown = true
 
@@ -101,12 +101,12 @@ const createSelection = (e: MouseEvent) => {
     let lockedDirection: 'horizontal' | 'vertical' | undefined
 
     // 按住Ctrl键或者Shift键时：
-    // 对于非线条元素需要锁定宽高比例，对于线条元素需要锁定水平或垂直方向
+    // 对于非Lines元素需要Lock Aspect Ratio例，对于Lines元素需要LockHorizontal或Vertical方向
     if (ctrlOrShiftKeyActive.value) {
       const moveX = currentPageX - startPageX
       const moveY = currentPageY - startPageY
 
-      // 水平和垂直方向的拖动距离，后面以拖动距离较大的方向为基础计算另一方向的数据
+      // Horizontal和Vertical方向的拖动距离，后面以拖动距离较大的方向为基础计算另一方向的数据
       const absX = Math.abs(moveX)
       const absY = Math.abs(moveY)
 
@@ -197,7 +197,7 @@ const createSelection = (e: MouseEvent) => {
   }
 }
 
-// 绘制线条的路径相关数据（仅当绘制元素类型为线条时使用）
+// 绘制Lines的路径相关数据（仅当绘制元素类型为Lines时使用）
 const lineData = computed(() => {
   if (!start.value || !end.value) return null
   if (!creatingElement.value || creatingElement.value.type !== 'line') return null
@@ -230,7 +230,7 @@ const lineData = computed(() => {
   }
 })
 
-// 根据生成范围的起始位置和终点位置，计算元素创建时的位置和大小
+// 根据生成范围的起始Position和终点Position，计算元素创建时的Position和大小
 const position = computed(() => {
   if (!start.value || !end.value) return {}
 

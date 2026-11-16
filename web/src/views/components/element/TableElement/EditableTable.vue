@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div 
     class="editable-table"
     :style="{
@@ -133,7 +133,7 @@ const slidesStore = useSlidesStore()
 
 const tableRef = useTemplateRef<HTMLTableElement>('tableRef')
 const cellEditorRef = useTemplateRef<InstanceType<typeof TableCellEditor>[]>('cellEditorRef')
-// 仅缓存状态，不保留编辑器 DOM；切格后仍能撤销该单元格的文字编辑。
+// 仅缓存状态，不保留编辑器 DOM；切格后仍能Undo该Cell的文字编辑。
 const cellEditorStates = shallowReactive(new Map<string, { state: EditorState; value: string; defaults: Partial<TableTextAttrs> }>())
 const cacheCellEditorState = (cell: TableCell, payload: { state: EditorState; value: string }) => {
   cellEditorStates.set(cell.id, { ...payload, defaults: pick(cell.style, Object.keys(defaultTableTextAttrs)) })
@@ -146,7 +146,7 @@ const emitTextChange = (data: TableCell[][], ignore = false) => {
 }
 
 watch(() => props.data, data => {
-  // 画布会复制元素数据，以 Store 中的提交值识别本地回写，避免逐字检查全部缓存。
+  // 画布会Copy元素数据，以 Store 中的提交值识别本地回写，避免逐字检查All Slides缓存。
   const element = localTextData ? slidesStore.currentSlide.elements.find(item => item.id === props.elementId) : null
   const localChange = element?.type === 'table' && toRaw(element.data) === localTextData
   localTextData = null
@@ -167,7 +167,7 @@ watch(() => props.data, data => {
   }
 })
 
-// 全局快照会整体替换幻灯片，即使文字相同，也不能继续使用回滚前的历史。
+// 全局快照会整体ReplaceSlide，即使文字相同，也不能继续使用回滚前的历史。
 watch(() => slidesStore.slides, () => cellEditorStates.clear())
 
 const draggingTableHeight = ref<number | null>(null)
@@ -189,7 +189,7 @@ const tableCells = computed<TableCell[][]>({
 const theme = computed(() => props.theme)
 const { subThemeColor } = useSubThemeColor(theme)
 
-// 计算表格每一列的列宽和总宽度
+// 计算Tables每一列的Column Width和总Width
 const colSizeList = ref<number[]>([])
 const totalWidth = computed(() => colSizeList.value.reduce((a, b) => a + b))
 watch([
@@ -199,7 +199,7 @@ watch([
   colSizeList.value = props.colWidths.map(item => item * props.width)
 }, { immediate: true })
 
-// 计算表格每一行的最小高度
+// 计算Tables每一行的最小Height
 const rowSizeList = ref<number[]>([])
 const getRowHeight = (rowIndex: number) => getTableRowHeight(rowSizeList.value, rowIndex, props.cellMinHeight)
 watch([
@@ -210,7 +210,7 @@ watch([
   rowSizeList.value = props.data.map((_, rowIndex) => getTableRowHeight(props.rowHeights, rowIndex, props.cellMinHeight))
 }, { immediate: true })
 
-// 根据表格行实际渲染高度定位行高拖拽线
+// 根据Tables行实际渲染Height定位Row Height拖拽线
 const rowRefs = useTemplateRef<HTMLTableRowElement[]>('rowRefs')
 const rowDragLinePosition = ref<number[]>([])
 const updateRowDragLinePosition = () => {
@@ -223,8 +223,8 @@ onMounted(() => {
 })
 onUnmounted(() => tableResizeObserver.disconnect())
 
-// 清除全部单元格的选中状态
-// 表格处于不可编辑状态时也需要清除
+// 清除All SlidesCell的选中状态
+// Tables处于不可编辑状态时也需要清除
 const removeSelectedCells = () => {
   startCell.value = []
   endCell.value = []
@@ -234,7 +234,7 @@ watch(() => props.editable, () => {
   if (!props.editable) removeSelectedCells()
 })
 
-// 用于拖拽列宽的操作节点位置
+// 用于拖拽Column Width的操作节点Position
 const dragLinePosition = computed(() => {
   const dragLinePosition: number[] = []
   for (let i = 1; i < colSizeList.value.length + 1; i++) {
@@ -244,11 +244,11 @@ const dragLinePosition = computed(() => {
   return dragLinePosition
 })
 
-// 无效的单元格位置（被合并的单元格位置）集合
+// 无效的CellPosition（被合并的CellPosition）集合
 const cells = computed(() => props.data)
 const { hideCells } = useHideCells(cells)
 
-// 当前选中的单元格集合
+// 当前选中的Cell集合
 const selectedCells = computed(() => {
   if (!startCell.value.length) return []
   const [startX, startY] = startCell.value
@@ -279,7 +279,7 @@ watch(selectedCells, (value, oldValue) => {
   emit('changeSelectedCells', selectedCells.value)
 })
 
-// 当前激活的单元格：当且仅当只有一个选中单元格时，该单元格为激活的单元格
+// 当前激活的Cell：当且仅当只有一个选中Cell时，该Cell为激活的Cell
 const activedCell = computed(() => {
   if (selectedCells.value.length > 1) return null
   return selectedCells.value[0]
@@ -296,7 +296,7 @@ watch([selectedCells, handleElementId, () => props.data], () => {
     editor.syncTextAttrs()
     return
   }
-  // 未进入单格编辑时，使用首个选中单元格的文字样式；未选格时使用左上角。
+  // 未进入单格编辑时，使用首个选中Cell的文字Style；未选格时使用左上角。
   const [row, col] = (selectedCells.value[0] || '0_0').split('_').map(Number)
   const cell = tableCells.value[row]?.[col]
   if (cell) syncTextAttrs(getTableTextAttrs(EditorState.create({ doc: parseTableText(cell.text) }), cell.style))
@@ -311,7 +311,7 @@ const updateTextAttrs = ({ targetId, attrs }: TableTextCommand) => {
     if (!result) return
     const [row, col] = activedCell.value.split('_').map(Number)
     data[row][col].text = result.text
-    // 非空内容只修改文档里的格式，避免内部撤销后仍被外层默认样式覆盖。
+    // 非空内容只修改文档里的格式，避免内部Undo后仍被外层默认Style覆盖。
     if (result.wholeCell && result.empty) {
       data[row][col].style = { ...data[row][col].style, ...attrs }
       const cached = cellEditorStates.get(data[row][col].id)
@@ -333,7 +333,7 @@ const updateTextAttrs = ({ targetId, attrs }: TableTextCommand) => {
 emitter.on(EmitterEvents.TABLE_TEXT_COMMAND, updateTextAttrs)
 onUnmounted(() => emitter.off(EmitterEvents.TABLE_TEXT_COMMAND, updateTextAttrs))
 
-// 设置选中单元格状态（鼠标点击或拖选）
+// 设置选中Cell状态（鼠标点击或拖选）
 const handleMouseup = () => isStartSelect.value = false
 
 const handleCellMousedown = (e: MouseEvent, rowIndex: number, colIndex: number) => {
@@ -342,7 +342,7 @@ const handleCellMousedown = (e: MouseEvent, rowIndex: number, colIndex: number) 
     isStartSelect.value = true
     startCell.value = [rowIndex, colIndex]
     if (!(e.target as HTMLElement).closest('.ProseMirror')) {
-      // 静态节点被替换后，按本次点击坐标恢复光标，而不是只恢复旧选区。
+      // 静态节点被Replace后，按本次点击坐标恢复光标，而不是只恢复旧选区。
       e.preventDefault()
       focusActiveCell({ left: e.clientX, top: e.clientY })
     }
@@ -361,7 +361,7 @@ onUnmounted(() => {
   document.removeEventListener('mouseup', handleMouseup)
 })
 
-// 判断某位置是否为无效单元格（被合并掉的位置）
+// 判断某Position是否为无效Cell（被合并掉的Position）
 const isHideCell = (rowIndex: number, colIndex: number) => hideCells.value.includes(`${rowIndex}_${colIndex}`)
 
 // 选中指定的列
@@ -378,7 +378,7 @@ const selectRow = (index: number) => {
   endCell.value = [index, maxCol]
 }
 
-// 选中全部单元格
+// 选中All SlidesCell
 const selectAll = () => {
   const maxRow = tableCells.value.length - 1
   const maxCol = tableCells.value[maxRow].length - 1
@@ -386,7 +386,7 @@ const selectAll = () => {
   endCell.value = [maxRow, maxCol]
 }
 
-// 删除一行
+// Delete一行
 const deleteRow = (rowIndex: number) => {
   const _tableCells: TableCell[][] = JSON.parse(JSON.stringify(tableCells.value))
 
@@ -415,7 +415,7 @@ const deleteRow = (rowIndex: number) => {
   emit('changeRowHeights', _rowHeights)
 }
 
-// 删除一列
+// Delete一列
 const deleteCol = (colIndex: number) => {
   const _tableCells: TableCell[][] = JSON.parse(JSON.stringify(tableCells.value))
 
@@ -525,7 +525,7 @@ const fillTable = (rowCount: number, colCount: number) => {
   tableCells.value = _tableCells
 }
 
-// 合并单元格
+// Merge Cells
 const mergeCells = () => {
   const [startX, startY] = startCell.value
   const [endX, endY] = endCell.value
@@ -544,7 +544,7 @@ const mergeCells = () => {
   removeSelectedCells()
 }
 
-// 拆分单元格
+// Split Cells
 const splitCells = (rowIndex: number, colIndex: number) => {
   const _tableCells: TableCell[][] = JSON.parse(JSON.stringify(tableCells.value))
   _tableCells[rowIndex][colIndex].rowspan = 1
@@ -554,7 +554,7 @@ const splitCells = (rowIndex: number, colIndex: number) => {
   removeSelectedCells()
 }
 
-// 鼠标拖拽调整列宽
+// 鼠标拖拽调整Column Width
 const handleMousedownColHandler = (e: MouseEvent, colIndex: number) => {
   removeSelectedCells()
   let isMouseDown = true
@@ -581,7 +581,7 @@ const handleMousedownColHandler = (e: MouseEvent, colIndex: number) => {
   }
 }
 
-// 鼠标拖拽调整行高
+// 鼠标拖拽调整Row Height
 const handleMousedownRowHandler = (e: MouseEvent, rowIndex: number) => {
   removeSelectedCells()
   let isMouseDown = true
@@ -610,7 +610,7 @@ const handleMousedownRowHandler = (e: MouseEvent, rowIndex: number) => {
   }
 }
 
-// 清空选中单元格内的文字
+// 清空选中Cell内的文字
 const clearSelectedCellText = () => {
   const _tableCells: TableCell[][] = JSON.parse(JSON.stringify(tableCells.value))
 
@@ -631,10 +631,10 @@ const focusActiveCell = (coords?: { left: number; top: number }) => {
   })
 }
 
-// 将焦点移动到下一个单元格
-// 当前行右边有单元格时，焦点右移
-// 当前行右边无单元格（已处在行末），且存在下一行时，焦点移动至下一行行首
-// 当前行右边无单元格（已处在行末），且不存在下一行（已处在最后一行）时，新建一行并将焦点移动至下一行行首
+// 将焦点移动到NextCell
+// 当前行右边有Cell时，焦点右移
+// 当前行右边无Cell（已处在行末），且存在下一行时，焦点移动至下一行行首
+// 当前行右边无Cell（已处在行末），且不存在下一行（已处在最后一行）时，新建一行并将焦点移动至下一行行首
 const tabActiveCell = () => {
   const getNextCell = (i: number, j: number): [number, number] | null => {
     if (!tableCells.value[i]) return null
@@ -717,7 +717,7 @@ const moveActiveCell = (dir: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT') => {
   focusActiveCell()
 }
 
-// 表格快捷键监听
+// Tables快捷键监听
 const keydownListener = (e: KeyboardEvent) => {
   if (!props.editable || !selectedCells.value.length || e.defaultPrevented || e.isComposing) return
   const target = e.target as HTMLElement
@@ -795,7 +795,7 @@ onUnmounted(() => {
   document.removeEventListener('keydown', keydownListener)
 })
 
-// 单元格文字输入时更新表格数据
+// Cell文字输入时更新Tables数据
 const handleInput = (value: string, rowIndex: number, colIndex: number, ignore: boolean) => {
   // 内容立即提交，历史快照仍由父组件防抖，切格时不会遗留待提交的输入。
   const data = [...tableCells.value]
@@ -804,9 +804,9 @@ const handleInput = (value: string, rowIndex: number, colIndex: number, ignore: 
   emitTextChange(data, ignore)
 }
 
-// 插入来自Excel的数据，表格的行/列数不够时自动补足
+// 插入来自Excel的数据，Tables的行/列数不够时自动补足
 const insertExcelData = async (data: string[][], rowIndex: number, colIndex: number) => {
-  // 输入和粘贴可能发生在同一轮更新中，扩表前先接收最新的单元格内容。
+  // 输入和Paste可能发生在同一轮更新中，扩表前先接收最新的Cell内容。
   await nextTick()
   const maxRow = data.length
   const maxCol = data[0].length
@@ -846,7 +846,7 @@ const insertExcelData = async (data: string[][], rowIndex: number, colIndex: num
   })
 }
 
-// 获取有效的单元格（排除掉被合并的单元格）
+// 获取有效的Cell（排除掉被合并的Cell）
 const getEffectiveTableCells = () => {
   const effectiveTableCells = []
 
@@ -862,7 +862,7 @@ const getEffectiveTableCells = () => {
   return effectiveTableCells
 }
 
-// 检查是否可以删除行和列：有效的行/列数大于1
+// 检查是否可以Delete行和列：有效的行/列数大于1
 const checkCanDeleteRowOrCol = () => {
   const effectiveTableCells = getEffectiveTableCells()
   const canDeleteRow = effectiveTableCells.length > 1
@@ -897,11 +897,11 @@ const execTableCommand = (payload: TableCommand) => {
   const { canDeleteRow, canDeleteCol } = checkCanDeleteRowOrCol()
 
   if (payload.command === 'delete-row') {
-    if (!canDeleteRow) return message.warning('表格至少保留一行')
+    if (!canDeleteRow) return message.warning('TablesMust keep at least 1 row')
     return deleteRow(targetCell ? targetCell.rowIndex : tableCells.value.length - 1)
   }
   if (payload.command === 'delete-col') {
-    if (!canDeleteCol) return message.warning('表格至少保留一列')
+    if (!canDeleteCol) return message.warning('TablesMust keep at least 1 column')
     const colCount = tableCells.value[0]?.length || 1
     return deleteCol(targetCell ? targetCell.colIndex : colCount - 1)
   }
@@ -916,7 +916,7 @@ onUnmounted(() => {
 
 // 检查是否可以合并或拆分
 // 必须多选才可以合并
-// 必须单选且所选单元格为合并单元格才可以拆分
+// 必须单选且所选Cell为Merge Cells才可以拆分
 const checkCanMergeOrSplit = (rowIndex: number, colIndex: number) => {
   const isMultiSelected = selectedCells.value.length > 1
   const targetCell = tableCells.value[rowIndex][colIndex]
@@ -942,51 +942,51 @@ const contextmenus = (el: HTMLElement): ContextmenuItem[] => {
 
   return [
     {
-      text: '插入列',
+      text: 'Insert Column',
       children: [
-        { text: '到左侧', handler: () => insertCol(colIndex) },
-        { text: '到右侧', handler: () => insertCol(colIndex + 1) },
+        { text: 'Left', handler: () => insertCol(colIndex) },
+        { text: 'Right', handler: () => insertCol(colIndex + 1) },
       ],
     },
     {
-      text: '插入行',
+      text: 'Insert Row',
       children: [
-        { text: '到上方', handler: () => insertRow(rowIndex) },
-        { text: '到下方', handler: () => insertRow(rowIndex + 1) },
+        { text: 'Above', handler: () => insertRow(rowIndex) },
+        { text: 'Below', handler: () => insertRow(rowIndex + 1) },
       ],
     },
     {
-      text: '删除列',
+      text: 'Delete Column',
       disable: !canDeleteCol,
       handler: () => deleteCol(colIndex),
     },
     {
-      text: '删除行',
+      text: 'Delete Row',
       disable: !canDeleteRow,
       handler: () => deleteRow(rowIndex),
     },
     { divider: true },
     {
-      text: '合并单元格',
+      text: 'Merge Cells',
       disable: !canMerge,
       handler: mergeCells,
     },
     {
-      text: '取消合并单元格',
+      text: 'CancelMerge Cells',
       disable: !canSplit,
       handler: () => splitCells(rowIndex, colIndex),
     },
     { divider: true },
     {
-      text: '选中当前列',
+      text: 'Select Column',
       handler: () => selectCol(colIndex),
     },
     {
-      text: '选中当前行',
+      text: 'Select Row',
       handler: () => selectRow(rowIndex),
     },
     {
-      text: '选中全部单元格',
+      text: 'Select All Cells',
       handler: selectAll,
     },
   ]
@@ -1088,7 +1088,7 @@ table {
     :deep(p) {
       margin: 0;
     }
-    // 仅补渲染占位，不将编辑器的辅助节点写入单元格内容。
+    // 仅补渲染占位，不将编辑器的辅助节点写入Cell内容。
     :deep(p)::after {
       content: '\200b';
     }

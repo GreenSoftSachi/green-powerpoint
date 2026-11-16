@@ -1,4 +1,4 @@
-import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
+﻿import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore } from '@/store'
 import type { PPTTableElement } from '@/types/slides'
@@ -84,7 +84,7 @@ export default () => {
       highlightCurrentSlide()
     }
     else {
-      message.warning('未查找到匹配项')
+      message.warning('未Find到匹配项')
       clearMarks()
     }
   }
@@ -233,7 +233,7 @@ export default () => {
   }
   
   const searchNext = () => {
-    if (!searchWord.value) return message.warning('请先输入查找内容')
+    if (!searchWord.value) return message.warning('请先输入Find内容')
     mainStore.setActiveElementIdList([])
     if (searchIndex.value === -1) search()
     else if (searchIndex.value < searchResults.value.length - 1) searchIndex.value += 1
@@ -242,7 +242,7 @@ export default () => {
   }
   
   const searchPrev = () => {
-    if (!searchWord.value) return message.warning('请先输入查找内容')
+    if (!searchWord.value) return message.warning('请先输入Find内容')
     mainStore.setActiveElementIdList([])
     if (searchIndex.value === -1) search()
     else if (searchIndex.value > 0) searchIndex.value -= 1
@@ -262,7 +262,7 @@ export default () => {
     if (target.elType === 'table') {
       const [i, j] = target.cellIndex
       const cell = document.querySelector(`#editable-element-${target.elId} .cell[data-cell-index="${i}_${j}"]`)
-      // 只读取正文，避免将静态布局容器或编辑器外壳写回单元格数据。
+      // 只读取Body Text，避免将静态布局容器或编辑器外壳写回单元格数据。
       targetElement = cell?.querySelector('.cell-text-content, .ProseMirror') || null
     }
     else targetElement = document.querySelector(`#editable-element-${target.elId} .ProseMirror`)

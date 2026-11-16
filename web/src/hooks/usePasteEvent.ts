@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from 'vue'
+﻿import { onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '@/store'
 import usePasteTextClipboardData from './usePasteTextClipboardData'
@@ -11,7 +11,7 @@ export default () => {
   const { pasteDataTransfer } = usePasteDataTransfer()
 
   /**
-   * 粘贴事件监听
+   * Paste事件监听
    * @param e ClipboardEvent
    */
   const pasteListener = (e: ClipboardEvent) => {

@@ -1,6 +1,6 @@
-<template>
+﻿<template>
   <div class="video-style-panel">
-    <div class="title">视频预览封面</div>
+    <div class="title">Video预览封面</div>
     <div class="background-image-wrapper">
       <FileInput @change="files => setVideoPoster(files)">
         <div class="background-image">
@@ -20,7 +20,7 @@
     <Divider />
 
     <div class="row switch-row">
-      <div style="width: 40%;">自动播放：</div>
+      <div style="width: 40%;">Autoplay:</div>
       <div class="switch-wrapper" style="width: 60%;">
         <Switch 
           :value="handleVideoElement.autoplay" 
@@ -57,14 +57,14 @@ const updateVideo = (props: Partial<PPTVideoElement>) => {
   addHistorySnapshot()
 }
 
-// 设置视频预览封面
+// 设置Video预览封面
 const setVideoPoster = (files: FileList) => {
   const imageFile = files[0]
   if (!imageFile) return
   getImageDataURL(imageFile).then(dataURL => updateVideo({ poster: dataURL }))
 }
 
-// 获取视频首帧作为预览封面
+// 获取Video首帧作为预览封面
 const setVideoPosterFromFirstFrame = () => {
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')

@@ -1,11 +1,11 @@
-<template>
+﻿<template>
   <div 
     class="thumbnails"
     @mousedown="() => setThumbnailsFocus(true)"
     v-click-outside="() => setThumbnailsFocus(false)"
   >
     <div class="add-slide">
-      <div class="btn" @click="createSlide()"><i-icon-park-outline:plus class="icon" />添加幻灯片</div>
+      <div class="btn" @click="createSlide()"><i-icon-park-outline:plus class="icon" />New Slide</div>
       <Popover trigger="click" placement="bottom-start" v-model:value="presetLayoutPopoverVisible" center>
         <template #content>
           <Templates 
@@ -41,13 +41,13 @@
               :id="`section-title-input-${element?.sectionTag?.id || 'default'}`" 
               type="text"
               :value="element?.sectionTag?.title || ''"
-              placeholder="输入节名称"
+              placeholder="Enter Section Name"
               @blur="$event => saveSection($event)"
               @keydown.enter.stop="$event => saveSection($event)"
               v-if="editingSectionId === element?.sectionTag?.id || (index === 0 && editingSectionId === 'default')"
             >
             <span class="text" v-else>
-              <div class="text-content">{{ element?.sectionTag ? (element?.sectionTag?.title || '无标题节') : '默认节' }}</div>
+              <div class="text-content">{{ element?.sectionTag ? (element?.sectionTag?.title || 'Untitled Section') : 'Default Section' }}</div>
             </span>
           </div>
           <div
@@ -69,7 +69,7 @@
       </template>
     </Draggable>
 
-    <div class="page-number">幻灯片 {{slideIndex + 1}} / {{slides.length}}</div>
+    <div class="page-number">Slide {{slideIndex + 1}} / {{slides.length}}</div>
   </div>
 </template>
 
@@ -132,16 +132,16 @@ const {
   updateSectionTitle,
 } = useSectionHandler()
 
-// 页面被切换时
+// 页面被Transition时
 const thumbnailsRef = useTemplateRef<InstanceType<typeof Draggable>>('thumbnailsRef')
 watch(() => slideIndex.value, () => {
 
-  // 清除多选状态的幻灯片
+  // 清除多选状态的Slide
   if (selectedSlidesIndex.value.length) {
     mainStore.updateSelectedSlidesIndex([])
   }
 
-  // 检查当前页缩略图是否在可视范围，不在的话需要滚动到对应的位置
+  // 检查Current Slide缩略图是否在可视范围，不在的话需要滚动到对应的Position
   nextTick(() => {
     const activeThumbnailRef: HTMLElement = thumbnailsRef.value?.$el?.querySelector('.thumbnail-item.active')
     if (thumbnailsRef.value && activeThumbnailRef && !isElementInViewport(activeThumbnailRef, thumbnailsRef.value.$el)) {
@@ -152,7 +152,7 @@ watch(() => slideIndex.value, () => {
   })
 }, { immediate: true })
 
-// 切换页面
+// Transition页面
 const changeSlideIndex = (index: number) => {
   mainStore.setActiveElementIdList([])
 
@@ -168,8 +168,8 @@ const handleClickSlideThumbnail = (e: MouseEvent, index: number) => {
 
   if (isMultiSelected && selectedSlidesIndex.value.includes(index) && e.button !== 0) return
 
-  // 按住Ctrl键，点选幻灯片，再次点击已选中的页面则取消选中
-  // 如果被取消选中的页面刚好是当前激活页面，则需要从其他被选中的页面中选择第一个作为当前激活页面
+  // 按住Ctrl键，点选Slide，再次点击已选中的页面则Cancel选中
+  // 如果被Cancel选中的页面刚好是当前激活页面，则需要Select from other slides第一个作为当前激活页面
   if (ctrlKeyState.value) {
     if (slideIndex.value === index) {
       if (!isMultiSelected) return
@@ -189,7 +189,7 @@ const handleClickSlideThumbnail = (e: MouseEvent, index: number) => {
       }
     }
   }
-  // 按住Shift键，选择范围内的全部幻灯片
+  // 按住Shift键，选择范围内的All SlidesSlide
   else if (shiftKeyState.value) {
     if (slideIndex.value === index && !isMultiSelected) return
 
@@ -205,7 +205,7 @@ const handleClickSlideThumbnail = (e: MouseEvent, index: number) => {
     for (let i = minIndex; i <= maxIndex; i++) newSelectedSlidesIndex.push(i)
     mainStore.updateSelectedSlidesIndex(newSelectedSlidesIndex)
   }
-  // 正常切换页面
+  // 正常Transition页面
   else {
     mainStore.updateSelectedSlidesIndex([])
     changeSlideIndex(index)
@@ -227,7 +227,7 @@ const handleDragEnd = (eventData: { newIndex: number; oldIndex: number }) => {
   sortSlides(newIndex, oldIndex)
 }
 
-// 打开批注面板
+// 打开Comments Pane
 const openNotesPanel = () => {
   mainStore.setNotesPanelState(true)
 }
@@ -262,22 +262,22 @@ const contextmenusSection = (el: HTMLElement): ContextmenuItem[] => {
 
   return [
     {
-      text: '删除节',
+      text: 'Delete Section',
       handler: () => removeSection(sectionId),
     },
     {
-      text: '删除节和幻灯片',
+      text: 'Delete Section and Slides',
       handler: () => {
         mainStore.setActiveElementIdList([])
         removeSectionSlides(sectionId)
       },
     },
     {
-      text: '删除所有节',
+      text: 'Delete All Sections',
       handler: removeAllSection,
     },
     {
-      text: '重命名节',
+      text: 'Rename Section',
       handler: () => editSection(sectionId),
     },
   ]
@@ -288,22 +288,22 @@ const { enterScreening, enterScreeningFromStart } = useScreening()
 const contextmenusThumbnails = (): ContextmenuItem[] => {
   return [
     {
-      text: '粘贴',
+      text: 'Paste',
       subText: 'Ctrl + V',
       handler: pasteSlide,
     },
     {
-      text: '全选',
+      text: 'Select All',
       subText: 'Ctrl + A',
       handler: selectAllSlide,
     },
     {
-      text: '新建页面',
+      text: 'New Slide',
       subText: 'Enter',
       handler: createSlide,
     },
     {
-      text: '幻灯片放映',
+      text: 'Slide Show',
       subText: 'F5',
       handler: enterScreeningFromStart,
     },
@@ -313,49 +313,49 @@ const contextmenusThumbnails = (): ContextmenuItem[] => {
 const contextmenusThumbnailItem = (): ContextmenuItem[] => {
   return [
     {
-      text: '剪切',
+      text: 'Cut',
       subText: 'Ctrl + X',
       handler: cutSlide,
     },
     {
-      text: '复制',
+      text: 'Copy',
       subText: 'Ctrl + C',
       handler: copySlide,
     },
     {
-      text: '粘贴',
+      text: 'Paste',
       subText: 'Ctrl + V',
       handler: pasteSlide,
     },
     {
-      text: '全选',
+      text: 'Select All',
       subText: 'Ctrl + A',
       handler: selectAllSlide,
     },
     { divider: true },
     {
-      text: '新建页面',
+      text: 'New Slide',
       subText: 'Enter',
       handler: createSlide,
     },
     {
-      text: '复制页面',
+      text: 'Duplicate Slide',
       subText: 'Ctrl + D',
       handler: copyAndPasteSlide,
     },
     {
-      text: '删除页面',
+      text: 'Delete Slide',
       subText: 'Delete',
       handler: () => deleteSlide(),
     },
     {
-      text: '增加节',
+      text: 'Add Section',
       handler: createSection,
       disable: !!currentSlide.value.sectionTag,
     },
     { divider: true },
     {
-      text: '从当前放映',
+      text: 'From Current Slide',
       subText: 'Shift + F5',
       handler: enterScreening,
     },

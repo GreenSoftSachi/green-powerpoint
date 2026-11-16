@@ -1,4 +1,4 @@
-import { type Directive, type DirectiveBinding, createVNode, render } from 'vue'
+﻿import { type Directive, type DirectiveBinding, createVNode, render } from 'vue'
 import ContextmenuComponent from '@/components/Contextmenu/index.vue'
 
 const CTX_CONTEXTMENU_HANDLER = 'CTX_CONTEXTMENU_HANDLER'
@@ -16,7 +16,7 @@ const contextmenuListener = (el: HTMLElement, event: MouseEvent, binding: Direct
 
   let container: HTMLDivElement | null = null
 
-  // 移除右键菜单并取消相关的事件监听
+  // 移除右键菜单并Cancel相关的事件监听
   const removeContextmenu = () => {
     if (container) {
       document.body.removeChild(container)
@@ -27,7 +27,7 @@ const contextmenuListener = (el: HTMLElement, event: MouseEvent, binding: Direct
     window.removeEventListener('resize', removeContextmenu)
   }
 
-  // 创建自定义菜单
+  // 创建Custom菜单
   const options = {
     axis: { x: event.x, y: event.y },
     el,

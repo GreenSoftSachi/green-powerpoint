@@ -1,8 +1,8 @@
-import Clipboard from 'clipboard'
+﻿import Clipboard from 'clipboard'
 import { decrypt } from '@/utils/crypto'
 
 /**
- * 复制文本到剪贴板
+ * Copy文本到剪贴板
  * @param text 文本内容
  */
 export const copyText = (text: string) => {
@@ -53,7 +53,7 @@ export const pasteCustomClipboardString = (text: string) => {
   return clipboardData
 }
 
-// 尝试解析剪贴板内容是否为Excel表格（或类似的）数据格式
+// 尝试解析剪贴板内容是否为ExcelTables（或类似的）数据格式
 export const pasteExcelClipboardString = (text: string): string[][] | null => {
   const lines: string[] = text.split('\r\n')
 

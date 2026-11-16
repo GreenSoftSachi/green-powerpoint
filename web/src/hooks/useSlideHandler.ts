@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+﻿import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { nanoid } from 'nanoid'
 import { useMainStore, useSlidesStore } from '@/store'
@@ -26,7 +26,7 @@ export default () => {
   const { addSlidesFromData } = useAddSlidesOrElements()
   const { addHistorySnapshot } = useHistorySnapshot()
 
-  // 重置幻灯片
+  // Reset Slides
   const resetSlides = () => {
     const emptySlide: Slide = {
       id: nanoid(10),
@@ -43,7 +43,7 @@ export default () => {
 
   /**
    * 移动页面焦点
-   * @param command 移动页面焦点命令：上移、下移
+   * @param command 移动页面焦点命令：Move Up、Move Down
    */
   const updateSlideIndex = (command: string) => {
     if (command === KEYS.UP && slideIndex.value > 0) {
@@ -56,7 +56,7 @@ export default () => {
     }
   }
 
-  // 将当前页面数据加密后复制到剪贴板
+  // 将Current Slide面数据加密后Copy到剪贴板
   const copySlide = () => {
     const text = encrypt(JSON.stringify({
       type: 'slides',
@@ -68,14 +68,14 @@ export default () => {
     })
   }
 
-  // 尝试将剪贴板页面数据解密后添加到下一页（粘贴）
+  // 尝试将剪贴板页面数据解密后添加到Next Slide（Paste）
   const pasteSlide = () => {
     readClipboard().then(text => {
       pasteTextClipboardData(text, { onlySlide: true })
     }).catch(err => message.warning(err))
   }
 
-  // 创建一页空白页并添加到下一页
+  // 创建一页空白页并添加到Next Slide
   const createSlide = () => {
     const emptySlide: Slide = {
       id: nanoid(10),
@@ -108,13 +108,13 @@ export default () => {
     addHistorySnapshot()
   }
 
-  // 将当前页复制一份到下一页
+  // 将Current SlideCopy一份到Next Slide
   const copyAndPasteSlide = () => {
     const slide = JSON.parse(JSON.stringify(currentSlide.value))
     addSlidesFromData([slide])
   }
 
-  // 删除当前页，若将删除全部页面，则执行重置幻灯片操作
+  // DeleteCurrent Slide，若将DeleteAll Slides页面，则执行Reset Slides操作
   const deleteSlide = (targetSlidesId = selectedSlidesId.value) => {
     if (slides.value.length === targetSlidesId.length) resetSlides()
     else slidesStore.deleteSlide(targetSlidesId)
@@ -124,22 +124,22 @@ export default () => {
     addHistorySnapshot()
   }
 
-  // 将当前页复制后删除（剪切）
-  // 由于复制操作会导致多选状态消失，所以需要提前将需要删除的页面ID进行缓存
+  // 将Current SlideCopy后Delete（Cut）
+  // 由于Copy操作会导致多选状态消失，所以需要提前将需要Delete的页面ID进行缓存
   const cutSlide = () => {
     const targetSlidesId = [...selectedSlidesId.value]
     copySlide()
     deleteSlide(targetSlidesId)
   }
 
-  // 选中全部幻灯片
+  // 选中All SlidesSlide
   const selectAllSlide = () => {
     const newSelectedSlidesIndex = Array.from(Array(slides.value.length), (item, index) => index)
     mainStore.setActiveElementIdList([])
     mainStore.updateSelectedSlidesIndex(newSelectedSlidesIndex)
   }
 
-  // 拖拽调整幻灯片顺序同步数据
+  // 拖拽调整Slide顺序同步数据
   const sortSlides = (newIndex: number, oldIndex: number) => {
     if (oldIndex === newIndex) return
   

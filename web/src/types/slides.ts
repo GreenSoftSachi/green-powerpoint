@@ -1,4 +1,4 @@
-export const enum ShapePathFormulasKeys {
+﻿export const enum ShapePathFormulasKeys {
   ROUND_RECT = 'roundRect',
   ROUND_RECT_DIAGONAL = 'roundRectDiagonal',
   ROUND_RECT_SINGLE = 'roundRectSingle',
@@ -58,7 +58,7 @@ export const enum ElementTypes {
  * 
  * type: 渐变类型（径向、线性）
  * 
- * colors: 渐变颜色列表（pos: 百分比位置；color: 颜色）
+ * colors: 渐变Color列表（pos: 百分比Position；color: Color）
  * 
  * rotate: 渐变角度（线性渐变）
  */
@@ -76,15 +76,15 @@ export interface Gradient {
 export type LineStyleType = 'solid' | 'dashed' | 'dotted'
 
 /**
- * 元素阴影
+ * 元素Shadow
  * 
- * h: 水平偏移量
+ * h: X Offset量
  * 
- * v: 垂直偏移量
+ * v: Y Offset量
  * 
  * blur: 模糊程度
  * 
- * color: 阴影颜色
+ * color: Shadow Color
  */
 export interface PPTElementShadow {
   h: number
@@ -94,13 +94,13 @@ export interface PPTElementShadow {
 }
 
 /**
- * 元素边框
+ * 元素Border
  * 
- * style?: 边框样式（实线或虚线）
+ * style?: BorderStyle（实线或虚线）
  * 
- * width?: 边框宽度
+ * width?: BorderWidth
  * 
- * color?: 边框颜色
+ * color?: Border Color
  */
 export interface PPTElementOutline {
   style?: LineStyleType
@@ -113,9 +113,9 @@ export type ElementLinkType = 'web' | 'slide'
 /**
  * 元素超链接
  * 
- * type: 链接类型（网页、幻灯片页面）
+ * type: 链接类型（网页、Slide页面）
  * 
- * target: 目标地址（网页链接、幻灯片页面ID）
+ * target: 目标地址（网页链接、Slide页面ID）
  */
 export interface PPTElementLink {
   type: ElementLinkType
@@ -132,19 +132,19 @@ export type TextAlignVertical = 'top' | 'middle' | 'bottom'
  * 
  * id: 元素ID
  * 
- * left: 元素水平方向位置（距离画布左侧）
+ * left: 元素Horizontal方向Position（距离画布左侧）
  * 
- * top: 元素垂直方向位置（距离画布顶部）
+ * top: 元素Vertical方向Position（距离画布顶部）
  * 
- * lock?: 锁定元素
+ * lock?: Lock元素
  * 
- * groupId?: 组合ID（拥有相同组合ID的元素即为同一组合元素成员）
+ * groupId?: GroupID（拥有相同GroupID的元素即为同一Group元素成员）
  * 
- * width: 元素宽度
+ * width: 元素Width
  * 
- * height: 元素高度
+ * height: 元素Height
  * 
- * rotate: 旋转角度
+ * rotate: Rotation Angle
  * 
  * link?: 超链接
  * 
@@ -174,23 +174,23 @@ export type TextInset = [number, number, number, number]
  * 
  * content: 文本内容（HTML字符串）
  * 
- * defaultFontName: 默认字体（会被文本内容中的HTML内联样式覆盖）
+ * defaultFontName: Default Font（会被文本内容中的HTML内联Style覆盖）
  * 
- * defaultColor: 默认颜色（会被文本内容中的HTML内联样式覆盖）
+ * defaultColor: 默认Color（会被文本内容中的HTML内联Style覆盖）
  * 
- * outline?: 边框
+ * outline?: Border
  * 
  * fill?: 填充色
  * 
- * lineHeight?: 行高（倍），默认1.5
+ * lineHeight?: Row Height（x），默认1.5
  * 
- * wordSpace?: 字间距，默认0
+ * wordSpace?: Letter Spacing，默认0
  * 
- * opacity?: 不透明度，默认1
+ * opacity?: Opacity，默认1
  * 
- * shadow?: 阴影
+ * shadow?: Shadow
  * 
- * paragraphSpace?: 段间距，默认5px
+ * paragraphSpace?: Paragraph Spacing，默认5px
  * 
  * vertical?: 竖向文本
  * 
@@ -198,9 +198,9 @@ export type TextInset = [number, number, number, number]
  * 
  * inset?: 内边距（上、右、下、左），默认[10, 10, 10, 10]
  *
- * fixedHeight?: 固定文本框自适应轴尺寸，横排文本固定高度，竖排文本固定宽度
+ * fixedHeight?: 固定Text BoxFit Screen轴尺寸，横排文本固定Height，竖排文本固定Width
  *
- * vAlign?: 文本框内垂直对齐方向，仅fixedHeight为真时有效，默认top
+ * vAlign?: Text Box内VerticalAlign方向，仅fixedHeight为真时有效，默认top
  */
 export interface PPTTextElement extends PPTBaseElement {
   type: 'text'
@@ -223,11 +223,11 @@ export interface PPTTextElement extends PPTBaseElement {
 
 
 /**
- * 图片翻转、形状翻转
+ * PicturesFlip、ShapesFlip
  * 
- * flipH?: 水平翻转
+ * flipH?: Flip Horizontal
  * 
- * flipV?: 垂直翻转
+ * flipV?: Flip Vertical
  */
 export interface ImageOrShapeFlip {
   flipH?: boolean
@@ -235,7 +235,7 @@ export interface ImageOrShapeFlip {
 }
 
 /**
- * 图片滤镜
+ * Pictures滤镜
  * 
  * https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter
  * 
@@ -249,9 +249,9 @@ export interface ImageOrShapeFlip {
  * 
  * 'saturate'?: 饱和度，默认100（%）
  * 
- * 'hue-rotate'?: 色相旋转，默认0（deg）
+ * 'hue-rotate'?: 色相Rotation，默认0（deg）
  * 
- * 'opacity'?: 不透明度，默认100（%）
+ * 'opacity'?: Opacity，默认100（%）
  */
 export type ImageElementFilterKeys = 'blur' | 'brightness' | 'contrast' | 'grayscale' | 'saturate' | 'hue-rotate' | 'opacity' | 'sepia' | 'invert'
 export interface ImageElementFilters {
@@ -269,11 +269,11 @@ export interface ImageElementFilters {
 export type ImageClipDataRange = [[number, number], [number, number]]
 
 /**
- * 图片裁剪
+ * Pictures裁剪
  * 
  * range: 裁剪范围，例如：[[10, 10], [90, 90]] 表示裁取原图从左上角 10%, 10% 到 90%, 90% 的范围
  * 
- * shape: 裁剪形状，见 configs/imageClip.ts CLIPPATHS 
+ * shape: 裁剪Shapes，见 configs/imageClip.ts CLIPPATHS 
  */
 export interface ImageElementClip {
   range: ImageClipDataRange
@@ -283,31 +283,31 @@ export interface ImageElementClip {
 export type ImageType = 'pageFigure' | 'itemFigure' | 'background'
 
 /**
- * 图片元素
+ * Pictures元素
  * 
  * type: 元素类型（image）
  * 
- * fixedRatio: 固定图片宽高比例
+ * fixedRatio: 固定Pictures宽高比例
  * 
- * src: 图片地址
+ * src: Pictures地址
  * 
- * outline?: 边框
+ * outline?: Border
  * 
- * filters?: 图片滤镜
+ * filters?: Pictures滤镜
  * 
  * clip?: 裁剪信息
  * 
- * flipH?: 水平翻转
+ * flipH?: Flip Horizontal
  * 
- * flipV?: 垂直翻转
+ * flipV?: Flip Vertical
  * 
- * shadow?: 阴影
+ * shadow?: Shadow
  * 
- * radius?: 圆角半径
+ * radius?: Corner Radius半径
  * 
- * colorMask?: 颜色蒙版
+ * colorMask?: Color蒙版
  * 
- * imageType?: 图片类型
+ * imageType?: Pictures类型
  */
 export interface PPTImageElement extends PPTBaseElement {
   type: 'image'
@@ -325,21 +325,21 @@ export interface PPTImageElement extends PPTBaseElement {
 }
 
 /**
- * 形状内文本
+ * Shapes内文本
  * 
  * content: 文本内容（HTML字符串）
  * 
- * defaultFontName: 默认字体（会被文本内容中的HTML内联样式覆盖）
+ * defaultFontName: Default Font（会被文本内容中的HTML内联Style覆盖）
  * 
- * defaultColor: 默认颜色（会被文本内容中的HTML内联样式覆盖）
+ * defaultColor: 默认Color（会被文本内容中的HTML内联Style覆盖）
  * 
- * align: 文本对齐方向（垂直方向）
+ * align: 文本Align方向（Vertical方向）
  * 
- * lineHeight?: 行高（倍），默认1.5
+ * lineHeight?: Row Height（x），默认1.5
  * 
- * wordSpace?: 字间距，默认0
+ * wordSpace?: Letter Spacing，默认0
  * 
- * paragraphSpace?: 段间距，默认5px
+ * paragraphSpace?: Paragraph Spacing，默认5px
  * 
  * type: 文本类型
  * 
@@ -358,15 +358,15 @@ export interface ShapeText {
 }
 
 /**
- * 形状元素
+ * Shapes元素
  * 
  * type: 元素类型（shape）
  * 
  * viewBox: SVG的viewBox属性，例如 [1000, 1000] 表示 '0 0 1000 1000'
  * 
- * path: 形状路径，SVG path 的 d 属性
+ * path: Shapes路径，SVG path 的 d 属性
  * 
- * fixedRatio: 固定形状宽高比例
+ * fixedRatio: 固定Shapes宽高比例
  * 
  * fill: 填充，不存在渐变时生效
  * 
@@ -374,25 +374,25 @@ export interface ShapeText {
  * 
  * pattern?: 图案，该属性存在时将优先作为填充
  * 
- * outline?: 边框
+ * outline?: Border
  * 
- * opacity?: 不透明度
+ * opacity?: Opacity
  * 
- * flipH?: 水平翻转
+ * flipH?: Flip Horizontal
  * 
- * flipV?: 垂直翻转
+ * flipV?: Flip Vertical
  * 
- * shadow?: 阴影
+ * shadow?: Shadow
  * 
- * special?: 特殊形状（标记一些难以解析的形状，例如路径使用了 L Q C A 以外的类型，该类形状在导出后将变为图片的形式）
+ * special?: 特殊Shapes（标记一些难以解析的Shapes，例如路径使用了 L Q C A 以外的类型，该类Shapes在Export后将变为Pictures的形式）
  * 
- * text?: 形状内文本
+ * text?: Shapes内文本
  * 
- * pathFormula?: 形状路径计算公式
- * 一般情况下，形状的大小变化时仅由宽高基于 viewBox 的缩放比例来调整形状，而 viewBox 本身和 path 不会变化，
- * 但也有一些形状希望能更精确的控制一些关键点的位置，此时就需要提供路径计算公式，通过在缩放时更新 viewBox 并重新计算 path 来重新绘制形状
+ * pathFormula?: Shapes路径计算Equation
+ * 一般情况下，Shapes的大小变化时仅由宽高基于 viewBox 的Zoom比例来调整Shapes，而 viewBox 本身和 path 不会变化，
+ * 但也有一些Shapes希望能更精确的控制一些关键点的Position，此时就需要提供路径计算Equation，通过在Zoom时更新 viewBox 并重新计算 path 来重新绘制Shapes
  * 
- * keypoints?: 关键点位置百分比
+ * keypoints?: 关键点Position百分比
  */
 export interface PPTShapeElement extends PPTBaseElement {
   type: 'shape'
@@ -425,31 +425,31 @@ export interface LineBinding {
 }
 
 /**
- * 线条元素
+ * Lines元素
  * 
  * type: 元素类型（line）
  * 
- * start: 起点位置（[x, y]）
+ * start: 起点Position（[x, y]）
  * 
- * end: 终点位置（[x, y]）
+ * end: 终点Position（[x, y]）
  * 
- * style: 线条样式（实线、虚线、点线）
+ * style: LinesStyle（实线、虚线、点线）
  * 
- * color: 线条颜色
+ * color: LinesColor
  * 
- * points: 端点样式（[起点样式, 终点样式]，可选：无、箭头、圆点）
+ * points: 端点Style（[起点Style, 终点Style]，可选：无、箭头、圆点）
  * 
- * shadow?: 阴影
+ * shadow?: Shadow
  * 
- * broken?: 折线控制点位置（[x, y]）
+ * broken?: 折线控制点Position（[x, y]）
  * 
- * broken2?: 双折线控制点位置（[x, y]）
+ * broken2?: 双折线控制点Position（[x, y]）
  * 
  * broken2Direction?: 双折线方向
  * 
- * curve?: 二次曲线控制点位置（[x, y]）
+ * curve?: 二次曲线控制点Position（[x, y]）
  * 
- * cubic?: 三次曲线控制点位置（[[x1, y1], [x2, y2]]）
+ * cubic?: 三次曲线控制点Position（[[x1, y1], [x2, y2]]）
  */
 export interface PPTLineElement extends Omit<PPTBaseElement, 'height' | 'rotate'> {
   type: 'line'
@@ -483,25 +483,25 @@ export interface ChartData {
 }
 
 /**
- * 图表元素
+ * Charts元素
  * 
  * type: 元素类型（chart）
  * 
  * fill?: 填充色
  * 
- * chartType: 图表基础类型（bar/line/pie），所有图表类型都是由这三种基本类型衍生而来
+ * chartType: Charts基础类型（bar/line/pie），所有Charts类型都是由这三种基本类型衍生而来
  * 
- * data: 图表数据
+ * data: Chart Data
  * 
  * options: 扩展选项
  * 
- * outline?: 边框
+ * outline?: Border
  * 
- * themeColors: 主题色
+ * themeColors: Theme Color
  * 
- * textColor?: 坐标和文字颜色
+ * textColor?: 坐标和文字Color
  * 
- * lineColor?: 网格颜色
+ * lineColor?: 网格Color
  */
 export interface PPTChartElement extends PPTBaseElement {
   type: 'chart'
@@ -517,25 +517,25 @@ export interface PPTChartElement extends PPTBaseElement {
 
 
 /**
- * 表格单元格样式
+ * Tables单元格Style
  * 
- * bold?: 加粗
+ * bold?: Bold
  * 
- * em?: 斜体
+ * em?: Italic
  * 
- * underline?: 下划线
+ * underline?: Underline
  * 
- * strikethrough?: 删除线
+ * strikethrough?: Delete线
  * 
- * color?: 字体颜色
+ * color?: FontColor
  * 
  * backcolor?: 填充色
  * 
- * fontsize?: 字体大小
+ * fontsize?: Font大小
  * 
- * fontname?: 字体
+ * fontname?: Font
  * 
- * align?: 对齐方式
+ * align?: Align方式
  */
 export interface TableCellStyle {
   bold?: boolean
@@ -552,7 +552,7 @@ export interface TableCellStyle {
 
 
 /**
- * 表格单元格
+ * Tables单元格
  * 
  * id: 单元格ID
  * 
@@ -562,7 +562,7 @@ export interface TableCellStyle {
  * 
  * text: 单元格富文本HTML
  * 
- * style?: 单元格样式
+ * style?: 单元格Style
  */
 export interface TableCell {
   id: string
@@ -573,9 +573,9 @@ export interface TableCell {
 }
 
 /**
- * 表格主题
+ * Tables主题
  * 
- * color: 主题色
+ * color: Theme Color
  * 
  * rowHeader: 标题行
  * 
@@ -594,21 +594,21 @@ export interface TableTheme {
 }
 
 /**
- * 表格元素
+ * Tables元素
  * 
  * type: 元素类型（table）
  * 
- * outline: 边框
+ * outline: Border
  * 
  * theme?: 主题
  * 
- * colWidths: 列宽数组，如[0.3, 0.5, 0.2]表示三列宽度分别占总宽度的30%, 50%, 20%
+ * colWidths: Column Width数组，如[0.3, 0.5, 0.2]表示三列Width分别占总Width的30%, 50%, 20%
  * 
- * cellMinHeight: 单元格最小高度
+ * cellMinHeight: 单元格最小Height
  *
- * rowHeights?: 各行最小高度
+ * rowHeights?: 各行最小Height
  * 
- * data: 表格数据
+ * data: Tables数据
  */
 export interface PPTTableElement extends PPTBaseElement {
   type: 'table'
@@ -622,7 +622,7 @@ export interface PPTTableElement extends PPTBaseElement {
 
 
 /**
- * LaTeX元素（公式）
+ * LaTeX元素（Equation）
  * 
  * type: 元素类型（latex）
  * 
@@ -630,13 +630,13 @@ export interface PPTTableElement extends PPTBaseElement {
  * 
  * path: svg path
  * 
- * color: 颜色
+ * color: Color
  * 
- * strokeWidth: 路径宽度
+ * strokeWidth: 路径Width
  * 
  * viewBox: SVG的viewBox属性
  * 
- * fixedRatio: 固定形状宽高比例
+ * fixedRatio: 固定Shapes宽高比例
  */
 export interface PPTLatexElement extends PPTBaseElement {
   type: 'latex'
@@ -649,17 +649,17 @@ export interface PPTLatexElement extends PPTBaseElement {
 }
 
 /**
- * 视频元素
+ * Video元素
  * 
  * type: 元素类型（video）
  * 
- * src: 视频地址
+ * src: Video地址
  * 
  * autoplay: 自动播放
  * 
  * poster: 预览封面
  * 
- * ext: 视频后缀，当资源链接缺少后缀时用该字段确认资源类型
+ * ext: Video后缀，当资源链接缺少后缀时用该字段Confirm资源类型
  */
 export interface PPTVideoElement extends PPTBaseElement {
   type: 'video'
@@ -670,21 +670,21 @@ export interface PPTVideoElement extends PPTBaseElement {
 }
 
 /**
- * 音频元素
+ * Audio元素
  * 
  * type: 元素类型（audio）
  * 
  * fixedRatio: 固定图标宽高比例
  * 
- * color: 图标颜色
+ * color: 图标Color
  * 
  * loop: 循环播放
  * 
  * autoplay: 自动播放
  * 
- * src: 音频地址
+ * src: Audio地址
  * 
- * ext: 音频后缀，当资源链接缺少后缀时用该字段确认资源类型
+ * ext: Audio后缀，当资源链接缺少后缀时用该字段Confirm资源类型
  */
 export interface PPTAudioElement extends PPTBaseElement {
   type: 'audio'
@@ -703,19 +703,19 @@ export type AnimationType = 'in' | 'out' | 'attention'
 export type AnimationTrigger = 'click' | 'meantime' | 'auto'
 
 /**
- * 元素动画
+ * 元素Animation
  * 
- * id: 动画id
+ * id: Animationid
  * 
  * elId: 元素ID
  * 
- * effect: 动画效果
+ * effect: Animation效果
  * 
- * type: 动画类型（入场、退场、强调）
+ * type: Animation类型（入场、退场、强调）
  * 
- * duration: 动画持续时间
+ * duration: AnimationDuration
  * 
- * trigger: 动画触发方式(click - 单击时、meantime - 与上一动画同时、auto - 上一动画之后)
+ * trigger: AnimationTrigger(click - On Click、meantime - 与上一Animation同时、auto - 上一Animation之后)
  */
 export interface PPTAnimation {
   id: string
@@ -734,13 +734,13 @@ export interface SlideBackgroundImage {
 }
 
 /**
- * 幻灯片背景
+ * Slide Background
  * 
- * type: 背景类型（纯色、图片、渐变）
+ * type: 背景类型（纯色、Pictures、渐变）
  * 
- * color?: 背景颜色（纯色）
+ * color?: 背景Color（纯色）
  * 
- * image?: 图片背景
+ * image?: Pictures背景
  * 
  * gradientType?: 渐变背景
  */
@@ -779,19 +779,19 @@ export interface SectionTag {
 export type SlideType = 'cover' | 'contents' | 'transition' | 'content' | 'end'
 
 /**
- * 幻灯片页面
+ * Slide页面
  * 
  * id: 页面ID
  * 
  * elements: 元素集合
  * 
- * notes?: 批注
+ * notes?: Comments
  * 
  * remark?: 备注
  * 
  * background?: 页面背景
  * 
- * animations?: 元素动画集合
+ * animations?: 元素Animation集合
  * 
  * turningMode?: 翻页方式
  * 
@@ -810,15 +810,15 @@ export interface Slide {
 }
 
 /**
- * 幻灯片主题
+ * Slide主题
  * 
- * backgroundColor: 页面背景颜色
+ * backgroundColor: 页面背景Color
  * 
- * themeColor: 主题色，用于默认创建的形状颜色等
+ * themeColor: Theme Color，用于默认创建的ShapesColor等
  * 
- * fontColor: 字体颜色
+ * fontColor: FontColor
  * 
- * fontName: 字体
+ * fontName: Font
  */
 export interface SlideTheme {
   backgroundColor: string

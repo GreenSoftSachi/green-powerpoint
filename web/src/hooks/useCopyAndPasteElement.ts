@@ -1,4 +1,4 @@
-import { storeToRefs } from 'pinia'
+﻿import { storeToRefs } from 'pinia'
 import { useMainStore } from '@/store'
 import { copyText, readClipboard } from '@/utils/clipboard'
 import { encrypt } from '@/utils/crypto'
@@ -13,7 +13,7 @@ export default () => {
   const { pasteTextClipboardData } = usePasteTextClipboardData()
   const { deleteElement } = useDeleteElement()
 
-  // 将选中元素数据加密后复制到剪贴板
+  // 将选中元素数据加密后Copy到剪贴板
   const copyElement = () => {
     if (!activeElementIdList.value.length) return
 
@@ -27,20 +27,20 @@ export default () => {
     })
   }
 
-  // 将选中元素复制后删除（剪切）
+  // 将选中元素Copy后Delete（Cut）
   const cutElement = () => {
     copyElement()
     deleteElement()
   }
 
-  // 尝试将剪贴板元素数据解密后进行粘贴
+  // 尝试将剪贴板元素数据解密后进行Paste
   const pasteElement = () => {
     readClipboard().then(text => {
       pasteTextClipboardData(text)
     }).catch(err => message.warning(err))
   }
 
-  // 将选中元素复制后立刻粘贴
+  // 将选中元素Copy后立刻Paste
   const quickCopyElement = () => {
     copyElement()
     pasteElement()

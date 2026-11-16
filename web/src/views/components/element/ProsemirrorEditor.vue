@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div 
     class="prosemirror-editor" 
     :class="{ 'format-painter': textFormatPainter }"
@@ -53,7 +53,7 @@ const editorViewRef = useTemplateRef<HTMLElement>('editorViewRef')
 let editorView: EditorView
 
 // 富文本的各种交互事件监听：
-// 聚焦时取消全局快捷键事件
+// 聚焦时Cancel全局快捷键事件
 // 输入文字时同步数据到vuex
 // 点击鼠标和键盘时同步富文本状态到工具栏
 const handleInput = debounce(function(isHanldeHistory = false) {
@@ -106,7 +106,7 @@ watch(textContent, () => {
   editorView.dispatch(tr.replaceRangeWith(0, doc.content.size, createDocument(textContent.value)))
 })
 
-// 打开/关闭编辑器的编辑模式
+// 打开/Close编辑器的编辑模式
 watch(() => props.editable, () => {
   editorView.setProps({ editable: () => props.editable })
 })
@@ -116,7 +116,7 @@ const focus = () => editorView.focus()
 defineExpose({ focus })
 
 // 执行富文本命令（可以是一个或多个）
-// 部分命令在执行前先判断当前选区是否为空，如果选区为空先进行全选操作
+// 部分命令在执行前先判断当前选区是否为空，如果选区为空先进行Select All操作
 const execCommand = ({ target, action }: RichTextCommand) => {
   if (!target && handleElementId.value !== props.elementId) return
   if (target && target !== props.elementId) return
@@ -130,7 +130,7 @@ const execCommand = ({ target, action }: RichTextCommand) => {
       addMark(editorView, mark)
 
       if (item.value && !document.fonts.check(`16px ${item.value}`)) {
-        message.warning('字体需要等待加载下载后生效，请稍等')
+        message.warning('Font is loading, please wait...')
       }
     }
     else if (item.command === 'fontsize' && item.value) {

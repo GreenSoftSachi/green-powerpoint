@@ -1,4 +1,4 @@
-import tinycolor from 'tinycolor2'
+﻿import tinycolor from 'tinycolor2'
 import { storeToRefs } from 'pinia'
 import { useSlidesStore } from '@/store'
 import type { Slide } from '@/types/slides'
@@ -18,7 +18,7 @@ export default () => {
 
   const { addHistorySnapshot } = useHistorySnapshot()
 
-  // 获取指定幻灯片内的主要主题样式，并以在当中的占比进行排序
+  // 获取指定Slide内的主要主题Style，并以在当中的占比进行排序
   const getSlidesThemeStyles = (slide: Slide | Slide[]) => {
     const slides = Array.isArray(slide) ? slide : [slide]
 
@@ -220,7 +220,7 @@ export default () => {
     }
   }
 
-  // 获取指定幻灯片内的主要颜色（忽略透明度），并按颜色面积排序
+  // 获取指定Slide内的主要Color（忽略Transparency），并按Color面积排序
   const getSlideAllColors = (slide: Slide) => {
     const colorMap: Record<string, number> = {}
 
@@ -267,7 +267,7 @@ export default () => {
     return colors
   }
   
-  // 创建原颜色与新颜色的对应关系表
+  // 创建原Color与新Color的对应关系表
   const createSlideThemeColorMap = (slide: Slide, _newColors: string[]): Record<string, string> => {
     const newColors = [..._newColors]
     const oldColors = getSlideAllColors(slide)
@@ -285,7 +285,7 @@ export default () => {
     return themeColorMap
   }
   
-  // 设置幻灯片主题
+  // 设置Slide主题
   const setSlideTheme = (slide: Slide, theme: PresetTheme) => {
     const colorMap = createSlideThemeColorMap(slide, theme.colors)
 
@@ -346,7 +346,7 @@ export default () => {
     }
   }
   
-  // 应用预置主题
+  // 应用Presets主题
   const applyPresetTheme = (theme: PresetTheme, resetSlides = false) => {
     slidesStore.setTheme({
       backgroundColor: theme.background,
@@ -370,7 +370,7 @@ export default () => {
     }
   }
   
-  // 将当前主题配置应用到全部页面
+  // 将当前主题配置Apply to All页面
   const applyThemeToAllSlides = (applyAll = false) => {
     const newSlides: Slide[] = JSON.parse(JSON.stringify(slides.value))
 
@@ -391,7 +391,7 @@ export default () => {
     addHistorySnapshot()
   }
 
-  // 统一字体
+  // 统一Font
   const applyFontToAllSlides = (fontname: string) => {
     const newSlides: Slide[] = JSON.parse(JSON.stringify(slides.value))
 

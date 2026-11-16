@@ -1,9 +1,9 @@
-<template>
+﻿<template>
   <Select
     class="font-select"
     :value="textAttrs.fontname"
     search
-    searchLabel="搜索字体"
+    searchLabel="Search Font"
     @update:value="value => emitTextCommand('fontname', value as string)"
     :options="FONTS"
   />
@@ -11,7 +11,7 @@
     class="fontsize-select"
     :value="textAttrs.fontsize"
     search
-    searchLabel="搜索字号"
+    searchLabel="Search Font Size"
     @update:value="value => emitTextCommand('fontsize', value as string)"
     :options="fontSizeOptions.map(item => ({ label: item, value: item }))"
   />

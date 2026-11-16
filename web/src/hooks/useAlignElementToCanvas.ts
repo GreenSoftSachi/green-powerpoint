@@ -1,4 +1,4 @@
-import { storeToRefs } from 'pinia'
+﻿import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore } from '@/store'
 import type { PPTElement } from '@/types/slides'
 import { ElementAlignCommands } from '@/types/edit'
@@ -13,8 +13,8 @@ export default () => {
   const { addHistorySnapshot } = useHistorySnapshot()
 
   /**
-   * 将所有选中的元素对齐到画布
-   * @param command 对齐方向
+   * 将所有选中的元素Align到画布
+   * @param command Align方向
    */
   const alignElementToCanvas = (command: ElementAlignCommands) => {
     const viewportWidth = viewportSize.value
@@ -25,7 +25,7 @@ export default () => {
     for (const element of newElementList) {
       if (!activeElementIdList.value.includes(element.id)) continue
       
-      // 水平垂直居中
+      // Align Center
       if (command === ElementAlignCommands.CENTER) {
         const offsetY = minY + (maxY - minY) / 2 - viewportHeight / 2
         const offsetX = minX + (maxX - minX) / 2 - viewportWidth / 2
@@ -33,37 +33,37 @@ export default () => {
         element.left = element.left - offsetX           
       }
 
-      // 顶部对齐
+      // Align Top
       if (command === ElementAlignCommands.TOP) {
         const offsetY = minY - 0
         element.top = element.top - offsetY            
       }
 
-      // 垂直居中
+      // Align Middle
       else if (command === ElementAlignCommands.VERTICAL) {
         const offsetY = minY + (maxY - minY) / 2 - viewportHeight / 2
         element.top = element.top - offsetY            
       }
 
-      // 底部对齐
+      // Align Bottom
       else if (command === ElementAlignCommands.BOTTOM) {
         const offsetY = maxY - viewportHeight
         element.top = element.top - offsetY       
       }
       
-      // 左侧对齐
+      // 左侧Align
       else if (command === ElementAlignCommands.LEFT) {
         const offsetX = minX - 0
         element.left = element.left - offsetX            
       }
 
-      // 水平居中
+      // Align Center
       else if (command === ElementAlignCommands.HORIZONTAL) {
         const offsetX = minX + (maxX - minX) / 2 - viewportWidth / 2
         element.left = element.left - offsetX            
       }
 
-      // 右侧对齐
+      // 右侧Align
       else if (command === ElementAlignCommands.RIGHT) {
         const offsetX = maxX - viewportWidth
         element.left = element.left - offsetX            

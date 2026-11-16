@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="outline-editor">
     <div class="item" 
       :class="[{ 'title': item.title }, `lv-${item.lv}`]"
@@ -212,7 +212,7 @@ const contextmenus = (el: HTMLElement): ContextmenuItem[] => {
         handler: () => addItem(id, 'next', '新的一节'),
       },
       {
-        text: '删除此章',
+        text: 'Delete此章',
         handler: () => deleteItem(id, true),
       },
     ]
@@ -228,7 +228,7 @@ const contextmenus = (el: HTMLElement): ContextmenuItem[] => {
         handler: () => addItem(id, 'next', '新的一项'),
       },
       {
-        text: '删除此节',
+        text: 'Delete此节',
         handler: () => deleteItem(id, true),
       },
     ]
@@ -243,7 +243,7 @@ const contextmenus = (el: HTMLElement): ContextmenuItem[] => {
       handler: () => addItem(id, 'next', '新的一项'),
     },
     {
-      text: '删除此项',
+      text: 'Delete此项',
       handler: () => deleteItem(id),
     },
   ]

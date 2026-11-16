@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="toolbar-content">
     <Popover trigger="click">
       <template #content>
@@ -6,7 +6,7 @@
       </template>
       <button class="toolbar-btn">
         <i-icon-park-outline:fill class="icon" />
-        <span>填充</span>
+        <span>Fill</span>
       </button>
     </Popover>
     <BorderPanel />

@@ -1,4 +1,4 @@
-export const enum ClipPathTypes {
+﻿export const enum ClipPathTypes {
   RECT = 'rect',
   ELLIPSE = 'ellipse',
   POLYGON = 'polygon',
@@ -48,7 +48,7 @@ export const CLIPPATHS: ClipPath = {
     },
   },
   roundRect: {
-    name: '圆角矩形',
+    name: 'Corner Radius矩形',
     type: ClipPathTypes.RECT,
     radius: '10px',
     style: 'inset(0 round 10px)',

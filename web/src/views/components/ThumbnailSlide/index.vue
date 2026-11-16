@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="thumbnail-slide"
     :style="{
       width: size + 'px',
@@ -22,7 +22,7 @@
         :elementIndex="index + 1"
       />
     </div>
-    <div class="placeholder" v-else>加载中 ...</div>
+    <div class="placeholder" v-else>Loading...</div>
   </div>
 </template>
 

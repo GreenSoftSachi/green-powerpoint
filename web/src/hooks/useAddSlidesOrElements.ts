@@ -1,4 +1,4 @@
-import { storeToRefs } from 'pinia'
+﻿import { storeToRefs } from 'pinia'
 import { nanoid } from 'nanoid'
 import { useSlidesStore, useMainStore } from '@/store'
 import type { PPTElement, Slide } from '@/types/slides'
@@ -77,15 +77,15 @@ export default () => {
         // 若元素绑定了页面跳转链接
         if (element.link && element.link.type === 'slide') {
 
-          // 待添加页面中包含该页面，则替换相关绑定关系
+          // 待添加页面中包含该页面，则Replace相关绑定关系
           if (slideIdMap[element.link.target]) {
             element.link.target = slideIdMap[element.link.target]
           }
-          // 待添加页面中不包含该页面，则删除该元素绑定的页面跳转
+          // 待添加页面中不包含该页面，则Delete该元素绑定的页面跳转
           else delete element.link
         }
       }
-      // 动画id替换
+      // AnimationidReplace
       if (slide.animations) {
         for (const animation of slide.animations) {
           animation.id = nanoid(10)

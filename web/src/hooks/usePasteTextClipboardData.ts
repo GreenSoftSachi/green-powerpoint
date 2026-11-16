@@ -1,4 +1,4 @@
-import { storeToRefs } from 'pinia'
+﻿import { storeToRefs } from 'pinia'
 import { useKeyboardStore } from '@/store'
 import { pasteCustomClipboardString } from '@/utils/clipboard'
 import { parseText2Paragraphs } from '@/utils/textParser'
@@ -13,10 +13,10 @@ interface PasteTextClipboardDataOptions {
 }
 
 /**
- * 判断图片URL字符串
+ * 判断PicturesURL字符串
  * 
- * ！！！注意，你需要判断允许哪些来源的图片地址被匹配，然后自行编写正则表达式
- * ！！！必须确保图片来源都是合法、可靠、可控、无访问限制的
+ * ！！！注意，你需要判断允许哪些来源的Pictures地址被匹配，然后自行编写正则表达式
+ * ！！！必须确保Pictures来源都是合法、可靠、可控、无访问限制的
  */
 const isValidImgURL = (url: string) => {
   const pexels = /^https?:\/\/(?:[a-zA-Z0-9-]+\.)*pexels\.com\/[^\s]+\.(?:jpg|jpeg|png|svg|webp)(?:\?.*)?$/i.test(url)
@@ -31,7 +31,7 @@ export default () => {
   const { addElementsFromData, addSlidesFromData } = useAddSlidesOrElements()
 
   /**
-   * 粘贴普通文本：创建为新的文本元素
+   * Paste普通文本：创建为新的文本元素
    * @param text 文本
    */
   const createTextElementFromClipboard = (text: string) => {
@@ -44,9 +44,9 @@ export default () => {
   }
 
   /**
-   * 解析剪贴板内容，根据解析结果选择合适的粘贴方式
+   * 解析剪贴板内容，根据解析结果选择合适的Paste方式
    * @param text 剪贴板内容
-   * @param options 配置项：onlySlide -- 仅处理页面粘贴；onlyElements -- 仅处理元素粘贴；
+   * @param options 配置项：onlySlide -- 仅处理页面Paste；onlyElements -- 仅处理元素Paste；
    */
   const pasteTextClipboardData = (text: string, options?: PasteTextClipboardDataOptions) => {
     const onlySlide = options?.onlySlide || false
@@ -70,7 +70,7 @@ export default () => {
         createTextElementFromClipboard(string)
       }
       else {
-        // 尝试检查是否为图片地址链接
+        // 尝试检查是否为Pictures地址链接
         if (isValidImgURL(clipboardData)) {
           createImageElement(clipboardData)
         }

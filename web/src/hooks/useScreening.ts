@@ -1,11 +1,11 @@
-import { useScreenStore, useSlidesStore } from '@/store'
+﻿import { useScreenStore, useSlidesStore } from '@/store'
 import { enterFullscreen, exitFullscreen, isFullscreen } from '@/utils/fullscreen'
 
 export default () => {
   const screenStore = useScreenStore()
   const slidesStore = useSlidesStore()
 
-  // 进入放映状态（从当前页开始）
+  // 进入放映状态（From Current Slide）
   const enterScreening = () => {
     enterFullscreen()
     screenStore.setScreening(true)
@@ -17,7 +17,7 @@ export default () => {
     enterScreening()
   }
 
-  // 退出放映状态
+  // End Slide Show状态
   const exitScreening = () => {
     screenStore.setScreening(false)
     if (isFullscreen()) exitFullscreen()

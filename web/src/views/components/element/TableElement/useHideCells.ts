@@ -1,7 +1,7 @@
-import { computed, type Ref } from 'vue'
+﻿import { computed, type Ref } from 'vue'
 import type { TableCell } from '@/types/slides'
 
-// 计算无效的单元格位置（被合并的单元格位置）集合
+// 计算无效的CellPosition（被合并的CellPosition）集合
 
 export default (cells: Ref<TableCell[][]>) => {
   const hideCells = computed(() => {

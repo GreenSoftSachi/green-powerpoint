@@ -1,8 +1,8 @@
-import { computed, type Ref } from 'vue'
+﻿import { computed, type Ref } from 'vue'
 import { OperateResizeHandlers, OperateBorderLines } from '@/types/edit'
 
 export default (width: Ref<number>, height: Ref<number>) => {
-  // 元素缩放点
+  // 元素Zoom点
   const resizeHandlers = computed(() => {
     return [
       { direction: OperateResizeHandlers.LEFT_TOP, style: {} },
@@ -16,7 +16,7 @@ export default (width: Ref<number>, height: Ref<number>) => {
     ]
   })
 
-  // 文本元素缩放点
+  // 文本元素Zoom点
   const textElementResizeHandlers = computed(() => {
     return [
       { direction: OperateResizeHandlers.LEFT, style: {top: height.value / 2 + 'px'} },
@@ -30,7 +30,7 @@ export default (width: Ref<number>, height: Ref<number>) => {
     ]
   })
 
-  // 元素选中边框线
+  // 元素选中Border线
   const borderLines = computed(() => {
     return [
       { type: OperateBorderLines.T, style: {width: width.value + 'px'} },

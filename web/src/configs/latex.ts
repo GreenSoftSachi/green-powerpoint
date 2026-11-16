@@ -1,4 +1,4 @@
-export interface FormulaPreset {
+﻿export interface FormulaPreset {
   label: string
   latex: string
   category?: string
@@ -6,14 +6,14 @@ export interface FormulaPreset {
 
 const MATH_FORMULAS = [
   {
-    label: '代数',
+    label: 'Algebra',
     children: [
       {
-        label: '完全平方公式',
+        label: '完全平方Equation',
         latex: '(a+b)^{2}=a^{2}+2ab+b^{2}',
       },
       {
-        label: '平方差公式',
+        label: '平方差Equation',
         latex: 'a^{2}-b^{2}=(a+b)(a-b)',
       },
       {
@@ -35,7 +35,7 @@ const MATH_FORMULAS = [
     ],
   },
   {
-    label: '集合',
+    label: 'Sets',
     children: [
       {
         label: '并集交换律',
@@ -56,7 +56,7 @@ const MATH_FORMULAS = [
     ],
   },
   {
-    label: '不等式',
+    label: 'Inequalities',
     children: [
       {
         label: '均值不等式（a,b≥0）',
@@ -77,10 +77,10 @@ const MATH_FORMULAS = [
     ],
   },
   {
-    label: '微分与微分方程',
+    label: 'Calculus',
     children: [
       {
-        label: '导数公式',
+        label: '导数Equation',
         latex: `(\\arcsin x)' = \\frac{1}{{\\sqrt {1 - x^2} }}`,
       },
       {
@@ -114,14 +114,14 @@ const MATH_FORMULAS = [
     ],
   },
   {
-    label: '积分',
+    label: 'Integrals',
     children: [
       {
         label: '定积分',
         latex: `\\lim_ { n \\rightarrow + \\infty } \\sum _ { i = 1 } ^ { n } f \\left[ a + \\frac { i } { n } ( b - a ) \\right] \\frac { b - a } { n } = \\int _ { a } ^ { b } f ( x ) dx`,
       },
       {
-        label: '牛顿–莱布尼茨公式（F′=f）',
+        label: '牛顿–莱布尼茨Equation（F′=f）',
         latex: '\\int_{a}^{b}f(x)\\,\\mathrm{d}x=F(b)-F(a)',
       },
       {
@@ -129,7 +129,7 @@ const MATH_FORMULAS = [
         latex: '\\int x^{n}\\,\\mathrm{d}x=\\frac{x^{n+1}}{n+1}+C',
       },
       {
-        label: '分部积分公式',
+        label: '分部积分Equation',
         latex: '\\int u\\,\\mathrm{d}v=uv-\\int v\\,\\mathrm{d}u',
       },
       {
@@ -137,24 +137,24 @@ const MATH_FORMULAS = [
         latex: '\\int\\tan x\\,\\mathrm{d}x=-\\ln\\left|\\cos x\\right|+C',
       },
       {
-        label: '高斯公式',
+        label: '高斯Equation',
         latex: `\\int\\int\\int _ { \\Omega } \\left( \\frac { \\partial {P} } { \\partial {x} } + \\frac { \\partial {Q} } { \\partial {y} } + \\frac { \\partial {R} }{ \\partial {z} } \\right) \\mathrm { d } V = \\oint _ { \\partial \\Omega } ( P \\cos \\alpha + Q \\cos \\beta + R \\cos \\gamma ) \\mathrm{ d} S`,
       },
     ],
   },
   {
-    label: '三角函数',
+    label: 'Trigonometry',
     children: [
       {
         label: '三角函数基本恒等式',
         latex: '\\sin^{2}x+\\cos^{2}x=1',
       },
       {
-        label: '正弦和角公式',
+        label: '正弦和角Equation',
         latex: '\\sin(\\alpha+\\beta)=\\sin\\alpha\\cos\\beta+\\cos\\alpha\\sin\\beta',
       },
       {
-        label: '正弦倍角公式',
+        label: '正弦x角Equation',
         latex: '\\sin2x=2\\sin x\\cos x',
       },
       {
@@ -166,13 +166,13 @@ const MATH_FORMULAS = [
         latex: `\\cos \\alpha + \\cos \\beta = 2 \\cos \\frac { 1 } { 2 } ( \\alpha + \\beta ) \\cos \\frac { 1 } { 2 } ( \\alpha - \\beta )`,
       },
       {
-        label: '欧拉公式',
+        label: '欧拉Equation',
         latex: ` e^{ix} = \\cos {x} + i\\sin {x}`,
       },
     ],
   },
   {
-    label: '数列与级数',
+    label: 'Sequences & Series',
     children: [
       {
         label: '等差数列通项',
@@ -201,7 +201,7 @@ const MATH_FORMULAS = [
     ],
   },
   {
-    label: '统计',
+    label: 'Statistics',
     children: [
       {
         label: '样本均值',
@@ -220,7 +220,7 @@ const MATH_FORMULAS = [
         latex: 'f(x)=\\frac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{(x-\\mu)^{2}}{2\\sigma^{2}}}',
       },
       {
-        label: '贝叶斯公式（P(B)>0）',
+        label: '贝叶斯Equation（P(B)>0）',
         latex: 'P(A\\mid B)=\\frac{P(B\\mid A)P(A)}{P(B)}',
       },
     ],
@@ -273,7 +273,7 @@ const MATRIX_FORMULAS = [
     latex: '\\begin{bmatrix}a & b & c \\\\ b & d & e \\\\ c & e & f\\end{bmatrix}',
   },
   {
-    label: '平面旋转矩阵',
+    label: '平面Rotation矩阵',
     latex: 'R(\\theta)=\\begin{pmatrix}\\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta\\end{pmatrix}',
   },
   {
@@ -285,7 +285,7 @@ const MATRIX_FORMULAS = [
     latex: '\\det\\begin{pmatrix}a & b \\\\ c & d\\end{pmatrix}=ad-bc',
   },
   {
-    label: '矩阵乘法元素公式',
+    label: '矩阵乘法元素Equation',
     latex: '(AB)_{ij}=\\sum_{k=1}^{n}a_{ik}b_{kj}',
   },
 ]
@@ -293,17 +293,17 @@ const MATRIX_FORMULAS = [
 export const FORMULA_LIST: {type: string; label: string; children: FormulaPreset[]}[] = [
   {
     type: 'math',
-    label: '数学',
+    label: 'Math',
     children: MATH_FORMULAS,
   },
   {
     type: 'matrix',
-    label: '矩阵',
+    label: 'Matrices',
     children: MATRIX_FORMULAS,
   },
   {
     type: 'physics',
-    label: '物理',
+    label: 'Physics',
     children: [
       {
         label: '牛顿第二定律',
@@ -318,7 +318,7 @@ export const FORMULA_LIST: {type: string; label: string; children: FormulaPreset
         latex: 'F=G\\frac{m_{1}m_{2}}{r^{2}}',
       },
       {
-        label: '动能公式',
+        label: '动能Equation',
         latex: 'E_{\\mathrm{k}}=\\frac{1}{2}mv^{2}',
       },
       {
@@ -334,7 +334,7 @@ export const FORMULA_LIST: {type: string; label: string; children: FormulaPreset
         latex: 'T=2\\pi\\sqrt{\\frac{l}{g}}',
       },
       {
-        label: '波速公式',
+        label: '波速Equation',
         latex: 'v=\\lambda f',
       },
       {
@@ -389,7 +389,7 @@ export const FORMULA_LIST: {type: string; label: string; children: FormulaPreset
   },
   {
     type: 'chemistry',
-    label: '化学',
+    label: 'Chemistry',
     children: [
       {
         label: '物质的量',
@@ -428,7 +428,7 @@ export const FORMULA_LIST: {type: string; label: string; children: FormulaPreset
         latex: '\\Delta G=\\Delta H-T\\Delta S',
       },
       {
-        label: '标准自由能与平衡常数',
+        label: 'Standard自由能与平衡常数',
         latex: '\\Delta G^{\\circ}=-RT\\ln K^{\\circ}',
       },
       {
@@ -470,7 +470,7 @@ export const FORMULA_LIST: {type: string; label: string; children: FormulaPreset
 export const SYMBOL_LIST = [
   {
     type: 'operators',
-    label: '数学',
+    label: 'Math',
     children: [
       { latex: '\\cdot' },
       { latex: '\\pm' },
@@ -603,7 +603,7 @@ export const SYMBOL_LIST = [
   },
   {
     type: 'group',
-    label: '组合',
+    label: 'Group',
     children: [
       { latex: '\\frac{a}{b}' },
       { latex: '\\dfrac{a}{b}' },
@@ -667,7 +667,7 @@ export const SYMBOL_LIST = [
   },
   {
     type: 'verbatim',
-    label: '函数',
+    label: 'Functions',
     children: [
       { latex: '\\log' },
       { latex: '\\ln' },
@@ -709,7 +709,7 @@ export const SYMBOL_LIST = [
   },
   {
     type: 'greek',
-    label: '希腊字母',
+    label: 'Greek Letters',
     children: [
       { latex: '\\alpha' },
       { latex: '\\beta' },

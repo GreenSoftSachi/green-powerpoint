@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+﻿import { defineStore } from 'pinia'
 import { omit } from 'lodash'
 import type { Slide, SlideTheme, PPTElement, PPTAnimation, SlideTemplate } from '@/types/slides'
 import { detachMovedLineConnections, hasLineConnectionChanges, resolveLineConnections } from '@/utils/element'
@@ -31,7 +31,7 @@ export interface SlidesState {
 
 export const useSlidesStore = defineStore('slides', {
   state: (): SlidesState => ({
-    title: '未命名演示文稿', // 幻灯片标题
+    title: '未命名演示文稿', // Slide标题
     theme: {
       themeColors: ['#5b9bd5', '#ed7d31', '#a5a5a5', '#ffc000', '#4472c4', '#70ad47'],
       fontColor: '#333',
@@ -48,10 +48,10 @@ export const useSlidesStore = defineStore('slides', {
         color: '#525252',
         style: 'solid',
       },
-    }, // 主题样式
-    slides: [], // 幻灯片页面数据
-    slideIndex: 0, // 当前页面索引
-    viewportSize: 1000, // 可视区域宽度基数
+    }, // 主题Style
+    slides: [], // Slide页面数据
+    slideIndex: 0, // Current Slide面索引
+    viewportSize: 1000, // 可视区域Width基数
     viewportRatio: 0.5625, // 可视区域比例，默认16:9
     templates: [
       { name: '山河映红', id: 'template_1', cover: './imgs/template_1.webp', origin: '官方制作' },
@@ -79,9 +79,9 @@ export const useSlidesStore = defineStore('slides', {
       return currentSlide.animations.filter(animation => elIds.includes(animation.elId))
     },
 
-    // 格式化的当前页动画
-    // 将触发条件为“与上一动画同时”的项目向上合并到序列中的同一位置
-    // 为触发条件为“上一动画之后”项目的上一项添加自动向下执行标记
+    // 格式化的Current SlideAnimation
+    // 将触发条件为“与上一Animation同时”的项目From Top合并到序列中的同一Position
+    // 为触发条件为“上一Animation之后”项目的上一项添加自动From Bottom执行标记
     formatedAnimations(state) {
       const currentSlide = state.slides[state.slideIndex]
       if (!currentSlide?.animations) return []
@@ -226,7 +226,7 @@ export const useSlidesStore = defineStore('slides', {
         if (hasLineConnectionChanges(el, propNames)) connectionsChanged = true
         return { ...el, ...props }
       })
-      // 面板主动改变线条位置时解除外部绑定；随动产生的坐标由整批提交入口处理。
+      // 面板主动改变LinesPosition时解除外部绑定；随动产生的坐标由整批提交入口处理。
       const nextElements = 'left' in props || 'top' in props
         ? detachMovedLineConnections(elements as PPTElement[], slide.elements) : elements as PPTElement[]
       this.slides[slideIndex].elements = connectionsChanged ? resolveLineConnections(nextElements) : nextElements

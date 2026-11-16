@@ -1,4 +1,4 @@
-import { storeToRefs } from 'pinia'
+﻿import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore } from '@/store'
 import type { PPTElement } from '@/types/slides'
 import { KEYS } from '@/configs/hotkey'
@@ -14,7 +14,7 @@ export default () => {
 
   /**
    * 将元素向指定方向移动指定的距离
-   * 组合元素成员中，存在被选中可独立操作的元素时，优先移动该元素。否则默认移动所有被选中的元素
+   * Group元素成员中，存在被选中可独立操作的元素时，优先移动该元素。否则默认移动所有被选中的元素
    * @param command 移动方向
    * @param step 移动距离
    */

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="mobile-player" 
     :style="{
       width: playerSize.width + 'px',
@@ -46,7 +46,7 @@
 
     <template v-if="toolVisible">
       <div class="header">
-        <div class="back" @click="changeMode('preview')"><i-icon-park-outline:logout /> 退出播放</div>
+        <div class="back" @click="changeMode('preview')"><i-icon-park-outline:logout /> Exit Slide Show</div>
       </div>
       <MobileThumbnails class="thumbnails" />
     </template>

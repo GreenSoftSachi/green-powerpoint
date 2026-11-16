@@ -1,4 +1,4 @@
-import { storeToRefs } from 'pinia'
+﻿import { storeToRefs } from 'pinia'
 import { nanoid } from 'nanoid'
 import { useMainStore, useSlidesStore } from '@/store'
 import { getImageSize } from '@/utils/image'
@@ -54,8 +54,8 @@ export default () => {
   }
 
   /**
-   * 创建图片元素
-   * @param src 图片地址
+   * 创建Pictures元素
+   * @param src Pictures地址
    */
   const createImageElement = (src: string) => {
     getImageSize(src).then(({ width, height }) => {
@@ -85,8 +85,8 @@ export default () => {
   }
   
   /**
-   * 创建图表元素
-   * @param chartType 图表类型
+   * 创建Charts元素
+   * @param chartType Charts类型
    */
   const createChartElement = (type: ChartType) => {
     createElement({
@@ -105,7 +105,7 @@ export default () => {
   }
   
   /**
-   * 创建表格元素
+   * 创建Tables元素
    * @param row 行数
    * @param col 列数
    */
@@ -159,7 +159,7 @@ export default () => {
   
   /**
    * 创建文本元素
-   * @param position 位置大小信息
+   * @param position Position大小信息
    * @param content 文本内容
    */
   const createTextElement = (position: CommonElementPosition, data?: CreateTextData) => {
@@ -189,9 +189,9 @@ export default () => {
   }
   
   /**
-   * 创建形状元素
-   * @param position 位置大小信息
-   * @param data 形状路径信息
+   * 创建Shapes元素
+   * @param position Position大小信息
+   * @param data Shapes路径信息
    */
   const createShapeElement = (position: CommonElementPosition, data: ShapePoolItem, supplement: Partial<PPTShapeElement> = {}) => {
     const { left, top, width, height } = position
@@ -226,9 +226,9 @@ export default () => {
   }
   
   /**
-   * 创建线条元素
-   * @param position 位置大小信息
-   * @param data 线条的路径和样式
+   * 创建Lines元素
+   * @param position Position大小信息
+   * @param data Lines的路径和Style
    */
   const createLineElement = (position: LineElementPosition, data: LinePoolItem) => {
     const { left, top, start, end, startBinding, endBinding } = position
@@ -277,8 +277,8 @@ export default () => {
   }
   
   /**
-   * 创建视频元素
-   * @param src 视频地址
+   * 创建Video元素
+   * @param src Video地址
    */
   const createVideoElement = (src: string, ext?: string) => {
     const newElement: PPTVideoElement = {
@@ -297,8 +297,8 @@ export default () => {
   }
   
   /**
-   * 创建音频元素
-   * @param src 音频地址
+   * 创建Audio元素
+   * @param src Audio地址
    */
   const createAudioElement = (src: string, ext?: string) => {
     const newElement: PPTAudioElement = {

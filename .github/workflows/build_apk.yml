@@ -77,13 +77,15 @@ jobs:
         path: dist/android/Green-PowerPoint-v1.aab
         retention-days: 30
 
-    - name: Create Public GitHub Release v1
+    - name: Create Public GitHub Release v1.0.1
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: v1
-        name: Green PowerPoint v1.0.0
+        tag_name: v1.0.1
+        name: Green PowerPoint v1.0.1
         body: |
-          ### Green PowerPoint v1.0.0 Android Release
+          ### Green PowerPoint v1.0.1 Android Release
+          - **New Brand Icon**: Applied official PowerPoint Book & Chart logo across launcher and UI
+          - **100% English Localization**: Fully translated interface, menus, ribbons, dialogs, templates, and controls
           - **Office 365 Ribbon UI**: Tabs for File, Home, Insert, Draw, Design, Transitions, Animation, View
           - **Full Microsoft PowerPoint Compatibility**: Native PPTX Import & Export, Slideshow presenter mode, Animations & Transitions
           - **Offline Ready**: Instant loading with local IndexedDB storage

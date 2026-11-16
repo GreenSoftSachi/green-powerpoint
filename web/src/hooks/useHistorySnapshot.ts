@@ -1,4 +1,4 @@
-import { debounce, throttle} from 'lodash'
+﻿import { debounce, throttle} from 'lodash'
 import { useSnapshotStore } from '@/store'
 
 export default () => {
@@ -9,12 +9,12 @@ export default () => {
     snapshotStore.addSnapshot()
   }, 300, { trailing: true })
 
-  // 重做
+  // Redo
   const redo = throttle(function() {
     snapshotStore.reDo()
   }, 100, { leading: true, trailing: false })
 
-  // 撤销
+  // Undo
   const undo = throttle(function() {
     snapshotStore.unDo()
   }, 100, { leading: true, trailing: false })

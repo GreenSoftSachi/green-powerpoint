@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div 
     class="screen-element"
     :class="{ 'link': elementInfo.link }"
@@ -60,23 +60,23 @@ const currentElementComponent = computed<unknown>(() => {
 
 const { formatedAnimations, theme } = storeToRefs(useSlidesStore())
 
-// 判断元素是否需要等待执行入场动画：等待执行入场的元素需要先隐藏
+// 判断元素是否需要等待执行入场Animation：等待执行入场的元素需要先Hide
 const needWaitAnimation = computed(() => {
-  // 该元素在本页动画序列中的位置
+  // 该元素在本页Animation序列中的Position
   const elementIndexInAnimation = formatedAnimations.value.findIndex(item => {
     const elIds = item.animations.map(item => item.elId)
     return elIds.includes(props.elementInfo.id)
   })
 
-  // 该元素未设置过动画
+  // 该元素未设置过Animation
   if (elementIndexInAnimation === -1) return false
 
-  // 若该元素已执行过动画，都无须隐藏
-  // 具体来说：若已执行的最后一个动画为入场，显然无须隐藏；若已执行的最后一个动画为退场，由于保留了退场动画结束状态，也无需额外隐藏
+  // 若该元素已执行过Animation，都无须Hide
+  // 具体来说：若已执行的最后一个Animation为入场，显然无须Hide；若已执行的最后一个Animation为退场，由于保留了退场Animation结束状态，也无需额外Hide
   if (elementIndexInAnimation < props.animationIndex) return false
 
-  // 若该元素未执行过动画，获取其将要执行的第一个动画
-  // 若将要执行的第一个动画为入场，则需要隐藏，否则无须隐藏
+  // 若该元素未执行过Animation，获取其将要执行的第一个Animation
+  // 若将要执行的第一个Animation为入场，则需要Hide，否则无须Hide
   const firstAnimation = formatedAnimations.value[elementIndexInAnimation].animations.find(item => item.elId === props.elementInfo.id)
   if (firstAnimation?.type === 'in') return true
   return false

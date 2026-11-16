@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+﻿/* eslint-disable max-lines */
 
 import { ShapePathFormulasKeys } from '@/types/slides'
 
@@ -27,7 +27,7 @@ export interface ShapePathFormula {
   formula: (width: number, height: number, values?: number[]) => string
 }
 
-// 固定外顶点，按比例移动凹点，保留各星形预置的默认轮廓。
+// 固定外顶点，按比例移动凹点，保留各星形Presets的默认轮廓。
 const getStarPath = (width: number, height: number, points: [number, number][], innerScale: number, viewBoxSize = 200) => {
   const center = viewBoxSize / 2
   const path = points.map(([x, y], index) => {
@@ -523,7 +523,7 @@ export const SHAPE_PATH_FORMULAS: Record<string, ShapePathFormula> = {
 
 export const SHAPE_LIST: ShapeListItem[] = [
   {
-    type: '矩形',
+    type: 'Rectangles',
     children: [
       {
         viewBox: [200, 200],
@@ -582,7 +582,7 @@ export const SHAPE_LIST: ShapeListItem[] = [
   },
 
   {
-    type: '常用形状',
+    type: 'Basic Shapes',
     children: [
       {
         viewBox: [200, 200],
@@ -885,7 +885,7 @@ export const SHAPE_LIST: ShapeListItem[] = [
   },
   
   {
-    type: '箭头',
+    type: 'Arrows',
     children: [
       {
         viewBox: [200, 200],
@@ -991,7 +991,7 @@ export const SHAPE_LIST: ShapeListItem[] = [
   },
 
   {
-    type: '其他形状',
+    type: 'Stars & Banners',
     children: [
       {
         viewBox: [1024, 1024],
@@ -1141,7 +1141,7 @@ export const SHAPE_LIST: ShapeListItem[] = [
   },
 
   {
-    type: '线性',
+    type: 'Lines & Connectors',
     children: [
       {
         viewBox: [1024, 1024],

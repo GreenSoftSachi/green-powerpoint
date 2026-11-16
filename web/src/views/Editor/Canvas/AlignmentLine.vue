@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="alignment-line" :style="{ left, top }">
     <div :class="['line', type]" :style="sizeStyle"></div>
   </div>
@@ -15,11 +15,11 @@ const props = defineProps<{
   canvasScale: number
 }>()
 
-// 吸附对齐线的位置
+// SnapAlign线的Position
 const left = computed(() => props.axis.x * props.canvasScale + 'px')
 const top = computed(() => props.axis.y * props.canvasScale + 'px')
 
-// 吸附对齐线的长度
+// SnapAlign线的长度
 const sizeStyle = computed(() => {
   if (props.type === 'vertical') return { height: props.length * props.canvasScale + 'px' }
   return { width: props.length * props.canvasScale + 'px' }

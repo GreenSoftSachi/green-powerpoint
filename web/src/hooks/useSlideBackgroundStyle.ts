@@ -1,7 +1,7 @@
-import { type Ref, computed } from 'vue'
+﻿import { type Ref, computed } from 'vue'
 import type { SlideBackground } from '@/types/slides'
 
-// 将页面背景数据转换为css样式
+// 将页面背景数据转换为cssStyle
 export default (background: Ref<SlideBackground | undefined>) => {
   const backgroundStyle = computed(() => {
     if (!background.value) return { backgroundColor: '#fff' }

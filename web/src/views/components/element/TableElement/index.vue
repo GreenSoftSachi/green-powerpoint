@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div 
     class="editable-element-table"
     ref="elementRef"
@@ -43,7 +43,7 @@
           @mousedown="$event => handleSelectElement($event)"
           @touchstart="$event => handleSelectElement($event)"
         >
-          <div class="mask-tip" v-if="handleElementId === elementInfo.id" :style="{ transform: `scale(${ 1 / canvasScale })` }">双击编辑</div>
+          <div class="mask-tip" v-if="handleElementId === elementInfo.id" :style="{ transform: `scale(${ 1 / canvasScale })` }">Double click to edit</div>
         </div>
       </div>
     </div>
@@ -77,7 +77,7 @@ const { undo, redo } = useHistorySnapshot()
 const snapshotStore = useSnapshotStore()
 const addHistorySnapshot = debounce(() => snapshotStore.addSnapshot(), 300, { trailing: true })
 
-// 全局回滚会替换 slides，取消旧编辑的待保存快照，避免覆盖重做记录。
+// 全局回滚会Replace slides，Cancel旧编辑的待Save快照，避免覆盖Redo记录。
 watch(() => slidesStore.slides, () => {
   addHistorySnapshot.cancel()
 }, { flush: 'sync' })
@@ -98,7 +98,7 @@ const handleSelectElement = (e: MouseEvent | TouchEvent) => {
   props.selectElement(e, props.elementInfo)
 }
 
-// 更新表格的可编辑状态，表格处于编辑状态时需要禁用全局快捷键
+// 更新Tables的可编辑状态，Tables处于编辑状态时需要禁用全局快捷键
 const editable = ref(false)
 
 watch(handleElementId, () => {
@@ -114,8 +114,8 @@ const startEdit = () => {
   if (!props.elementInfo.lock) editable.value = true
 }
 
-// 监听表格元素的尺寸变化，当高度变化时，更新高度到vuex
-// 如果高度变化时正处在缩放操作中，则等待缩放操作结束后再更新
+// 监听Tables元素的尺寸变化，当Height变化时，更新Height到vuex
+// 如果Height变化时正处在Zoom操作中，则等待Zoom操作结束后再更新
 const realHeightCache = ref(-1)
 
 watch(isScaling, () => {
@@ -159,17 +159,17 @@ onUnmounted(() => {
   if (elementRef.value) resizeObserver.unobserve(elementRef.value)
 })
 
-// 更新表格内容数据
+// 更新Tables内容数据
 const updateTableCells = (data: TableCell[][], options: { ignore?: boolean } = {}) => {
   slidesStore.updateElement({
     id: props.elementInfo.id, 
     props: { data },
   })
-  // 与普通文本一致：内部撤销不新增快照，但保留其他单元格的待保存任务。
+  // 与普通文本一致：内部Undo不新增快照，但保留其他Cell的待Save任务。
   if (!options.ignore) addHistorySnapshot()
 }
 
-// 更新表格各行最小高度
+// 更新Tables各行最小Height
 const updateRowHeights = (heights: number[]) => {
   slidesStore.updateElement({
     id: props.elementInfo.id,
@@ -178,7 +178,7 @@ const updateRowHeights = (heights: number[]) => {
   addHistorySnapshot()
 }
 
-// 更新表格的列宽数据
+// 更新Tables的Column Width数据
 const updateColWidths = (widths: number[]) => {
   const width = widths.reduce((a, b) => a + b)
   const colWidths = widths.map(item => item / width)
@@ -190,7 +190,7 @@ const updateColWidths = (widths: number[]) => {
   addHistorySnapshot()
 }
 
-// 更新表格当前选中的单元格
+// 更新Tables当前选中的Cell
 const updateSelectedCells = (cells: string[]) => {
   nextTick(() => {
     if (handleElementId.value === props.elementInfo.id) mainStore.setSelectedTableCells(cells)

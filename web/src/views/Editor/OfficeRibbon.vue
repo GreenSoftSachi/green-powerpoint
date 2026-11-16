@@ -4,7 +4,7 @@
     <div class="office-title-bar">
       <div class="title-bar-left">
         <div class="app-brand" @click="openBackstage()">
-          <span class="office-p-badge">P</span>
+          <img src="/logo.png" class="office-p-logo" alt="PowerPoint" />
           <span class="app-name">Green PowerPoint</span>
         </div>
         <div class="quick-access-tools">
@@ -834,6 +834,12 @@ const createNewBlankPresentation = () => {
   &:hover {
     background-color: rgba(255, 255, 255, 0.15);
   }
+}
+
+.office-p-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .office-p-badge {

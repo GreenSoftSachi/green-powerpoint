@@ -1,4 +1,4 @@
-import { DOMParser, DOMSerializer, Schema, type Mark, type Node } from 'prosemirror-model'
+﻿import { DOMParser, DOMSerializer, Schema, type Mark, type Node } from 'prosemirror-model'
 import { EditorState } from 'prosemirror-state'
 import { closeHistory } from 'prosemirror-history'
 import { nodes } from 'prosemirror-schema-basic'
@@ -49,7 +49,7 @@ export const serializeTableText = (doc: Node) => {
   return container.innerHTML
 }
 
-// 跨格粘贴也使用文档事务，保留该单元格此前的文字历史，并与相邻输入分组隔离。
+// 跨格Paste也使用文档事务，保留该单元格此前的文字历史，并与相邻输入分组隔离。
 export const replaceTableText = (state: EditorState, html: string) => {
   return closeHistory(state.tr.replaceWith(0, state.doc.content.size, parseTableText(html).content))
 }

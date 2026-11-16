@@ -1,4 +1,4 @@
-import { createVNode, render, computed, ref } from 'vue'
+﻿import { createVNode, render, computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { saveAs } from 'file-saver'
 import pptxgen from 'pptxgenjs'
@@ -52,7 +52,7 @@ export default () => {
     }
   }
 
-  // 导出图片
+  // Images (.png/.jpg)
   const exportImage = (domRef: HTMLElement, format: string, quality: number, ignoreWebfont = true) => {
     exporting.value = true
     const toImage = format === 'png' ? toPng : toJpeg
@@ -73,12 +73,12 @@ export default () => {
         saveAs(dataUrl, `${title.value}.${format}`)
       }).catch(() => {
         exporting.value = false
-        message.error('导出图片失败')
+        message.error('Images (.png/.jpg)失败')
       })
     }, 200)
   }
 
-  // 导出图片版PPTX
+  // Images (.png/.jpg)版PPTX
   const exportImagePPTX = (domRefs: NodeListOf<Element>) => {
     exporting.value = true
     
@@ -114,12 +114,12 @@ export default () => {
         pptx.writeFile({ fileName: `${title.value}.pptx` }).then(() => exporting.value = false)
       }).catch(() => {
         exporting.value = false
-        message.error('导出失败')
+        message.error('Export失败')
       })
     }, 200)
   }
   
-  // 导出pptist文件（特有 .pptist 后缀文件）
+  // Exportpptist文件（特有 .pptist 后缀文件）
   const exportSpecificFile = (_slides: Slide[]) => {
     const json = {
       title: title.value,
@@ -132,7 +132,7 @@ export default () => {
     saveAs(blob, `${title.value}.pptist`)
   }
   
-  // 导出JSON文件
+  // ExportJSON文件
   const exportJSON = () => {
     const json = {
       title: title.value,
@@ -145,7 +145,7 @@ export default () => {
     saveAs(blob, `${title.value}.json`)
   }
 
-  // 格式化颜色值为 透明度 + HexString，供pptxgenjs使用
+  // 格式化Color值为 Transparency + HexString，供pptxgenjs使用
   const formatColor = (_color: string) => {
     if (!_color) {
       return {
@@ -166,7 +166,7 @@ export default () => {
   type FormatColor = ReturnType<typeof formatColor>
 
   // 将HTML字符串格式化为pptxgenjs所需的格式
-  // 核心思路：将HTML字符串按样式分片平铺，每个片段需要继承祖先元素的样式信息，遇到块级元素需要换行
+  // 核心思路：将HTML字符串按Style分片平铺，每个片段需要继承祖先元素的Style信息，遇到块级元素需要换行
   const formatHTML = (html: string) => {
     const ast = toAST(html)
     let bulletFlag = false
@@ -379,7 +379,7 @@ export default () => {
     })
   }
 
-  // 获取阴影配置
+  // 获取Shadow配置
   const getShadowOption = (shadow: PPTElementShadow): pptxgen.ShadowProps => {
     const c = formatColor(shadow.color)
     const { h, v } = shadow
@@ -444,7 +444,7 @@ export default () => {
     'dotted': 'sysDot',
   }
 
-  // 获取边框配置
+  // 获取Border配置
   const getOutlineOption = (outline: PPTElementOutline): pptxgen.ShapeLineProps => {
     const c = formatColor(outline?.color || '#000000')
     
@@ -468,20 +468,20 @@ export default () => {
     return null
   }
 
-  // 判断是否为Base64图片地址
+  // 判断是否为Base64Pictures地址
   const isBase64Image = (url: string) => {
     const regex = /^data:image\/[^;]+;base64,/
     return url.match(regex) !== null
   }
 
-  // 判断是否为SVG图片地址
+  // 判断是否为SVGPictures地址
   const isSVGImage = (url: string) => {
     const isSVGBase64 = /^data:image\/svg\+xml;base64,/.test(url)
     const isSVGUrl = /\.svg$/.test(url)
     return isSVGBase64 || isSVGUrl
   }
 
-  // 导出PPTX文件
+  // ExportPPTX文件
   const exportPPTX = (_slides: Slide[], masterOverwrite: boolean, ignoreMedia: boolean) => {
     exporting.value = true
     const pptx = new pptxgen()
@@ -765,7 +765,7 @@ export default () => {
           for (let i = 0; i < el.data.series.length; i++) {
             const item = el.data.series[i]
             chartData.push({
-              name: `系列${i + 1}`,
+              name: `Series ${i + 1}`,
               labels: el.data.labels,
               values: item,
             })
@@ -1003,7 +1003,7 @@ export default () => {
     setTimeout(() => {
       pptx.writeFile({ fileName: `${title.value}.pptx` }).then(() => exporting.value = false).catch(() => {
         exporting.value = false
-        message.error('导出失败')
+        message.error('Export失败')
       })
     }, 200)
   }
