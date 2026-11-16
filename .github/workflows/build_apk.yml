@@ -59,38 +59,42 @@ jobs:
     - name: Prepare Artifacts
       run: |
         mkdir -p dist/android
+        cp android/app/build/outputs/apk/release/*.apk dist/android/G-PowerPoint-v1.apk
         cp android/app/build/outputs/apk/release/*.apk dist/android/Green-PowerPoint-v1.apk
+        cp android/app/build/outputs/bundle/release/*.aab dist/android/G-PowerPoint-v1.aab
         cp android/app/build/outputs/bundle/release/*.aab dist/android/Green-PowerPoint-v1.aab
         ls -la dist/android/
 
     - name: Upload Release APK
       uses: actions/upload-artifact@v4
       with:
-        name: Green-PowerPoint-v1-APK
-        path: dist/android/Green-PowerPoint-v1.apk
+        name: G-PowerPoint-v1-APK
+        path: dist/android/G-PowerPoint-v1.apk
         retention-days: 30
 
     - name: Upload Play Store AAB Bundle
       uses: actions/upload-artifact@v4
       with:
-        name: Green-PowerPoint-v1-AAB
-        path: dist/android/Green-PowerPoint-v1.aab
+        name: G-PowerPoint-v1-AAB
+        path: dist/android/G-PowerPoint-v1.aab
         retention-days: 30
 
-    - name: Create Public GitHub Release v1.0.2
+    - name: Create Public GitHub Release v1.0.3
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: v1.0.2
-        name: Green PowerPoint v1.0.2
+        tag_name: v1.0.3
+        name: G-PowerPoint v1.0.3
         body: |
-          ### Green PowerPoint v1.0.2 Android Release
-          - **Authentic Microsoft PowerPoint UI**: Pixel-perfect replication of PowerPoint desktop and web ribbon interface
-          - **Authentic Canvas & Title Placeholders**: Clean blank slide 1 with "Click to add title" and "Click to add subtitle"
-          - **PowerPoint Status Bar**: Bottom status bar with slide counter, theme indicator, notes toggle, and interactive zoom slider
-          - **Full Mobile Ribbon Support**: Always loads full Office Ribbon editor on mobile Android devices
-          - **Zero Chinese Text / Zero PPTist Branding**: 100% clean English throughout
+          ### G-PowerPoint v1.0.3 Android Release
+          - **New Brand Identity**: G-PowerPoint with modern Fluent 365 3D presentation logo (100% Google Play Store Compliant)
+          - **Zero Chinese Text**: Fully eliminated Untitled Presentation in Chinese (`未命名演示文稿`) and translated all 22 slide transition animation names
+          - **Authentic Microsoft PowerPoint Ribbon UI**: Grouped ribbon shelves for Home, Insert, Draw, Design, Transitions, Animations, Slide Show, Review, and View
+          - **Clean Canvas**: Blank slide with "Click to add title" and "Click to add subtitle"
+          - **PowerPoint Status Bar**: Bottom status bar with slide counter, theme, notes toggle, and interactive zoom slider
           - **Developer**: Sachinthaka Sandaruwan (Green Soft Technologies)
         files: |
+          dist/android/G-PowerPoint-v1.apk
+          dist/android/G-PowerPoint-v1.aab
           dist/android/Green-PowerPoint-v1.apk
           dist/android/Green-PowerPoint-v1.aab
         draft: false

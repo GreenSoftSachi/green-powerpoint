@@ -4,8 +4,8 @@
     <div class="office-title-bar">
       <div class="title-bar-left">
         <div class="app-brand" @click="openBackstage()">
-          <img src="/logo.png" class="office-p-logo" alt="PowerPoint" />
-          <span class="app-name">Green PowerPoint</span>
+          <img src="/logo.png" class="office-p-logo" alt="G-PowerPoint" />
+          <span class="app-name">G-PowerPoint</span>
         </div>
         <div class="quick-access-tools">
           <button class="qa-btn" title="Save Presentation (Ctrl + S)" @click="quickSave()">
@@ -33,7 +33,7 @@
             @blur="handleUpdateTitle()"
             @keydown.enter="handleUpdateTitle()"
           />
-          <span v-else class="doc-title-text">{{ title || 'Presentation1' }} - Microsoft PowerPoint</span>
+          <span v-else class="doc-title-text">{{ title || 'Presentation1' }} - G-PowerPoint</span>
         </div>
       </div>
 
@@ -553,15 +553,15 @@
             <div class="about-header">
               <div class="brand-avatar">P</div>
               <div>
-                <h3>Green PowerPoint - Office 365 Edition</h3>
-                <p>Version 1.0.0 (Android & Web)</p>
+                <h3>G-PowerPoint - Office Edition</h3>
+                <p>Version 1.0.3 (Android & Web)</p>
               </div>
             </div>
             <hr class="card-divider" />
             <div class="dev-profile">
               <p><strong>Developed & Engineered by:</strong> Sachinthaka Sandaruwan</p>
               <p><strong>Organization:</strong> Green Soft Technologies</p>
-              <p><strong>Ecosystem:</strong> Green-Word, Green-Excel, Green-PowerPoint</p>
+              <p><strong>Ecosystem:</strong> G-Word, G-Excel, G-PowerPoint</p>
               <p><strong>License:</strong> Open Source (Apache 2.0 / MIT)</p>
             </div>
           </div>
