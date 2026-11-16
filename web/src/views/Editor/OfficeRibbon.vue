@@ -9,7 +9,7 @@
         </div>
         <div class="quick-access-tools">
           <button class="qa-btn" title="Save Presentation (Ctrl + S)" @click="quickSave()">
-            <i-icon-park-outline:save-one />
+            <i-icon-park-outline:download />
           </button>
           <button class="qa-btn" :class="{ 'disabled': !canUndo }" title="Undo (Ctrl + Z)" @click="undo()">
             <i-icon-park-outline:back />
@@ -73,7 +73,7 @@
         <div class="ribbon-group">
           <div class="ribbon-group-tools">
             <button class="ribbon-tool-btn large" @click="pasteSlideOrElement()" title="Paste (Ctrl + V)">
-              <i-icon-park-outline:clipboard class="icon-lg" />
+              <i-icon-park-outline:format-brush class="icon-lg" />
               <span class="btn-label">Paste</span>
             </button>
             <div class="vertical-tools-col">
@@ -82,7 +82,7 @@
                 <span>Copy</span>
               </button>
               <button class="ribbon-tool-btn small" @click="cutSlideOrElement()" title="Cut (Ctrl + X)">
-                <i-icon-park-outline:cutting />
+                <i-icon-park-outline:tailoring />
                 <span>Cut</span>
               </button>
             </div>
@@ -96,7 +96,7 @@
         <div class="ribbon-group">
           <div class="ribbon-group-tools">
             <button class="ribbon-tool-btn large primary-accent" @click="createNewSlide()" title="New Slide (Enter)">
-              <i-icon-park-outline:plus-cross class="icon-lg" />
+              <i-icon-park-outline:plus class="icon-lg" />
               <span class="btn-label">New Slide</span>
             </button>
             <div class="vertical-tools-col">
@@ -195,12 +195,12 @@
           <div class="ribbon-group-tools">
             <FileInput @change="files => insertImageElement(files)">
               <button class="ribbon-tool-btn large" title="Upload Picture">
-                <i-icon-park-outline:upload-picture class="icon-lg" />
+                <i-icon-park-outline:upload class="icon-lg" />
                 <span class="btn-label">Picture</span>
               </button>
             </FileInput>
             <button class="ribbon-tool-btn large" @click="openImageLibPanel()" title="Online Image Library">
-              <i-icon-park-outline:pic class="icon-lg" />
+              <i-icon-park-outline:picture class="icon-lg" />
               <span class="btn-label">Stock Images</span>
             </button>
           </div>
@@ -302,7 +302,7 @@
               <span class="btn-label">Pen (Freehand)</span>
             </button>
             <button class="ribbon-tool-btn large" @click="svgPathEditorVisible = true">
-              <i-icon-park-outline:curve-adjustment class="icon-lg" />
+              <i-icon-park-outline:transform class="icon-lg" />
               <span class="btn-label">Path Editor</span>
             </button>
           </div>
@@ -320,11 +320,11 @@
             </button>
             <div class="vertical-tools-col">
               <button class="ribbon-tool-btn small" :class="{ 'active': viewportRatio === 0.5625 }" @click="setRatio(0.5625)">
-                <i-icon-park-outline:tv />
+                <i-icon-park-outline:full-screen />
                 <span>Widescreen (16:9)</span>
               </button>
               <button class="ribbon-tool-btn small" :class="{ 'active': viewportRatio === 0.75 }" @click="setRatio(0.75)">
-                <i-icon-park-outline:monitor-one />
+                <i-icon-park-outline:fullwidth />
                 <span>Standard (4:3)</span>
               </button>
             </div>
@@ -338,11 +338,11 @@
         <div class="ribbon-group">
           <div class="ribbon-group-tools">
             <button class="ribbon-tool-btn large" @click="setToolbarTab('slideAnimation')">
-              <i-icon-park-outline:switching-done class="icon-lg" />
+              <i-icon-park-outline:switch class="icon-lg" />
               <span class="btn-label">Transition Effects</span>
             </button>
             <button class="ribbon-tool-btn large" @click="applyTransitionToAllSlides()">
-              <i-icon-park-outline:all-application class="icon-lg" />
+              <i-icon-park-outline:effects class="icon-lg" />
               <span class="btn-label">Apply to All</span>
             </button>
           </div>
@@ -355,7 +355,7 @@
         <div class="ribbon-group">
           <div class="ribbon-group-tools">
             <button class="ribbon-tool-btn large" @click="setToolbarTab('animation')">
-              <i-icon-park-outline:play class="icon-lg" />
+              <i-icon-park-outline:play-one class="icon-lg" />
               <span class="btn-label">Animation Effects</span>
             </button>
             <button class="ribbon-tool-btn large" @click="setToolbarTab('animation')">
@@ -393,11 +393,11 @@
             </button>
             <div class="vertical-tools-col">
               <button class="ribbon-tool-btn small" @click="scaleCanvas('+')">
-                <i-icon-park-outline:zoom-in />
+                <i-icon-park-outline:add />
                 <span>Zoom In ({{ canvasScalePercentage }}%)</span>
               </button>
               <button class="ribbon-tool-btn small" @click="scaleCanvas('-')">
-                <i-icon-park-outline:zoom-out />
+                <i-icon-park-outline:reduce />
                 <span>Zoom Out</span>
               </button>
             </div>
@@ -415,19 +415,19 @@
           <span>Back</span>
         </button>
         <div class="backstage-nav-item" :class="{ 'active': backstagePage === 'info' }" @click="backstagePage = 'info'">
-          <i-icon-park-outline:info />
+          <i-icon-park-outline:helpcenter />
           <span>Info</span>
         </div>
         <div class="backstage-nav-item" :class="{ 'active': backstagePage === 'new' }" @click="backstagePage = 'new'">
-          <i-icon-park-outline:file-addition-one />
+          <i-icon-park-outline:plus />
           <span>New</span>
         </div>
         <div class="backstage-nav-item" :class="{ 'active': backstagePage === 'open' }" @click="backstagePage = 'open'">
-          <i-icon-park-outline:folder-open />
+          <i-icon-park-outline:upload />
           <span>Open</span>
         </div>
         <div class="backstage-nav-item" :class="{ 'active': backstagePage === 'export' }" @click="backstagePage = 'export'">
-          <i-icon-park-outline:download-three />
+          <i-icon-park-outline:download />
           <span>Export / Save</span>
         </div>
         <div class="backstage-nav-item" :class="{ 'active': backstagePage === 'about' }" @click="backstagePage = 'about'">
@@ -447,7 +447,7 @@
           </div>
           <div class="action-btn-row">
             <button class="backstage-primary-btn" @click="exportPPTX()">
-              <i-icon-park-outline:save />
+              <i-icon-park-outline:download />
               <span>Save Presentation (.pptx)</span>
             </button>
           </div>
@@ -482,7 +482,7 @@
 
             <FileInput accept=".pptist" @change="files => { importSpecificFile(files); closeBackstage() }">
               <div class="import-box">
-                <i-icon-park-outline:file-doc class="box-icon" />
+                <i-icon-park-outline:ppt class="box-icon" />
                 <span class="box-title">Open PPTist File (.pptist)</span>
                 <span class="box-desc">Load native PPTist presentation state</span>
               </div>
@@ -500,7 +500,7 @@
               <span class="box-desc">Standard Microsoft PowerPoint presentation</span>
             </div>
             <div class="export-box" @click="triggerExport('pdf')">
-              <i-icon-park-outline:pdf class="box-icon" />
+              <i-icon-park-outline:format class="box-icon" />
               <span class="box-title">Export as PDF Document (.pdf)</span>
               <span class="box-desc">Portable document format for printing & sharing</span>
             </div>
@@ -1309,3 +1309,5 @@ const createNewBlankPresentation = () => {
   margin: 16px 0;
 }
 </style>
+
+
