@@ -1012,15 +1012,6 @@ const createNewBlankPresentation = () => {
     background-color: #B93D20;
   }
 }
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  margin-right: 6px;
-  transition: background 0.15s;
-
-  &:hover, &.active {
-    background-color: #A82A00;
-  }
-}
 
 .ribbon-tab {
   height: 30px;
