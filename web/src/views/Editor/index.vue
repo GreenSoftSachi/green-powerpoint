@@ -1,11 +1,12 @@
 <template>
-  <div class="pptist-editor">
+  <div class="powerpoint-editor">
     <OfficeRibbon class="layout-ribbon" />
     <div class="layout-content">
       <Thumbnails class="layout-content-left" />
       <div class="layout-content-center">
         <Canvas class="center-body" :style="{ height: `calc(100% - ${remarkHeight}px)` }" />
         <Remark
+          v-if="remarkHeight > 0"
           class="center-bottom" 
           v-model:height="remarkHeight" 
           :style="{ height: `${remarkHeight}px` }"
@@ -13,6 +14,7 @@
       </div>
       <Toolbar class="layout-content-right" />
     </div>
+    <OfficeStatusBar v-model:remarkHeight="remarkHeight" />
   </div>
 
   <SelectPanel v-if="showSelectPanel" />
@@ -53,6 +55,7 @@ import useGlobalHotkey from '@/hooks/useGlobalHotkey'
 import usePasteEvent from '@/hooks/usePasteEvent'
 
 import OfficeRibbon from './OfficeRibbon.vue'
+import OfficeStatusBar from './OfficeStatusBar.vue'
 import Canvas from './Canvas/index.vue'
 import Thumbnails from './Thumbnails/index.vue'
 import Toolbar from './Toolbar/index.vue'
@@ -84,14 +87,14 @@ const {
 const closeExportDialog = () => mainStore.setDialogForExport('')
 const closeAIPPTDialog = () => mainStore.setAIPPTDialogState(false)
 
-const remarkHeight = ref(40)
+const remarkHeight = ref(0)
 
 useGlobalHotkey()
 usePasteEvent()
 </script>
 
 <style lang="scss" scoped>
-.pptist-editor {
+.powerpoint-editor {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -103,7 +106,7 @@ usePasteEvent()
 }
 .layout-content {
   flex: 1;
-  height: calc(100% - 162px);
+  min-height: 0;
   display: flex;
   overflow: hidden;
 }

@@ -377,7 +377,7 @@ provide(injectKeySlideScale, canvasScale)
   height: 100%;
   user-select: none;
   overflow: hidden;
-  background-color: $lightGray;
+  background-color: #9e9e9e;
   position: relative;
 }
 .drag-mask {
@@ -386,7 +386,8 @@ provide(injectKeySlideScale, canvasScale)
 }
 .viewport-wrapper {
   position: absolute;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0 0 12px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.5);
+  background: #ffffff;
 }
 .viewport {
   position: absolute;

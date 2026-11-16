@@ -1,10 +1,9 @@
 <template>
   <template v-if="slides.length">
     <Screen v-if="screening" />
-    <Editor v-else-if="_isPC" />
-    <Mobile v-else />
+    <Editor v-else />
   </template>
-  <FullscreenSpin tip="数据初始化中，请稍等 ..." v-else  loading :mask="false" />
+  <FullscreenSpin tip="Starting PowerPoint..." v-else loading :mask="false" />
 </template>
 
 <script lang="ts" setup>

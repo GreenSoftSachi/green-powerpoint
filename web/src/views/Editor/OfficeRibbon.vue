@@ -33,7 +33,7 @@
             @blur="handleUpdateTitle()"
             @keydown.enter="handleUpdateTitle()"
           />
-          <span v-else class="doc-title-text">{{ title || 'Presentation1' }} - PowerPoint</span>
+          <span v-else class="doc-title-text">{{ title || 'Presentation1' }} - Microsoft PowerPoint</span>
         </div>
       </div>
 
@@ -367,20 +367,54 @@
         </div>
       </div>
 
-      <!-- TAB 7: VIEW -->
-      <div class="ribbon-tab-content" v-else-if="activeRibbonTab === 'view'">
+      <!-- TAB 7: SLIDE SHOW -->
+      <div class="ribbon-tab-content" v-else-if="activeRibbonTab === 'slideshow'">
         <div class="ribbon-group">
           <div class="ribbon-group-tools">
-            <button class="ribbon-tool-btn large primary-accent" @click="enterScreeningFromStart()">
+            <button class="ribbon-tool-btn large primary-accent" @click="enterScreeningFromStart()" title="Start from First Slide (F5)">
               <i-icon-park-outline:slide-two class="icon-lg" />
               <span class="btn-label">From Beginning</span>
             </button>
-            <button class="ribbon-tool-btn large" @click="enterScreening()">
+            <button class="ribbon-tool-btn large" @click="enterScreening()" title="Start from Current Slide">
               <i-icon-park-outline:ppt class="icon-lg" />
               <span class="btn-label">From Current</span>
             </button>
           </div>
           <div class="group-title">Start Slide Show</div>
+        </div>
+      </div>
+
+      <!-- TAB 8: REVIEW -->
+      <div class="ribbon-tab-content" v-else-if="activeRibbonTab === 'review'">
+        <div class="ribbon-group">
+          <div class="ribbon-group-tools">
+            <button class="ribbon-tool-btn large" :class="{ 'active': showNotesPanel }" @click="toggleNotesPanel()">
+              <i-icon-park-outline:comment class="icon-lg" />
+              <span class="btn-label">Comments</span>
+            </button>
+            <button class="ribbon-tool-btn large" :class="{ 'active': creatingCustomShape }" @click="drawCustomShape()">
+              <i-icon-park-outline:writing-fluently class="icon-lg" />
+              <span class="btn-label">Inking / Markup</span>
+            </button>
+          </div>
+          <div class="group-title">Comments & Ink</div>
+        </div>
+      </div>
+
+      <!-- TAB 9: VIEW -->
+      <div class="ribbon-tab-content" v-else-if="activeRibbonTab === 'view'">
+        <div class="ribbon-group">
+          <div class="ribbon-group-tools">
+            <button class="ribbon-tool-btn large" @click="enterScreeningFromStart()">
+              <i-icon-park-outline:slide-two class="icon-lg" />
+              <span class="btn-label">Normal View</span>
+            </button>
+            <button class="ribbon-tool-btn large" @click="toggleSelectPanel()">
+              <i-icon-park-outline:list-view class="icon-lg" />
+              <span class="btn-label">Slide Sorter</span>
+            </button>
+          </div>
+          <div class="group-title">Presentation Views</div>
         </div>
 
         <div class="ribbon-divider"></div>
@@ -394,7 +428,7 @@
             <div class="vertical-tools-col">
               <button class="ribbon-tool-btn small" @click="scaleCanvas('+')">
                 <i-icon-park-outline:add />
-                <span>Zoom In ({{ canvasScalePercentage }}%)</span>
+                <span>Zoom In ({{ canvasScalePercentage }})</span>
               </button>
               <button class="ribbon-tool-btn small" @click="scaleCanvas('-')">
                 <i-icon-park-outline:reduce />
@@ -615,7 +649,9 @@ const ribbonTabs = [
   { id: 'draw', label: 'Draw' },
   { id: 'design', label: 'Design' },
   { id: 'transitions', label: 'Transitions' },
-  { id: 'animation', label: 'Animation' },
+  { id: 'animation', label: 'Animations' },
+  { id: 'slideshow', label: 'Slide Show' },
+  { id: 'review', label: 'Review' },
   { id: 'view', label: 'View' },
 ]
 
@@ -808,12 +844,13 @@ const createNewBlankPresentation = () => {
 /* 1. Office 365 Title Bar */
 .office-title-bar {
   height: 38px;
-  background-color: #D83B01; /* PowerPoint Signature Orange-Red */
-  color: #fff;
+  background: linear-gradient(180deg, #f7f6f5 0%, #ebe9e7 100%);
+  border-bottom: 1px solid #dcdad8;
+  color: #333333;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
+  padding: 0 10px;
 }
 
 .title-bar-left, .title-bar-right {
@@ -832,19 +869,19 @@ const createNewBlankPresentation = () => {
   transition: background 0.15s;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }
 
 .office-p-logo {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
 }
 
 .office-p-badge {
-  background-color: #fff;
-  color: #D83B01;
+  background-color: #D83B01;
+  color: #fff;
   font-weight: 800;
   font-size: 13px;
   width: 20px;
@@ -857,7 +894,8 @@ const createNewBlankPresentation = () => {
 
 .app-name {
   font-weight: 600;
-  font-size: 13.5px;
+  font-size: 13px;
+  color: #333;
   letter-spacing: 0.2px;
 }
 
@@ -870,7 +908,7 @@ const createNewBlankPresentation = () => {
 .qa-btn {
   background: transparent;
   border: none;
-  color: #fff;
+  color: #444;
   width: 26px;
   height: 26px;
   border-radius: 3px;
@@ -878,14 +916,15 @@ const createNewBlankPresentation = () => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
 
   &:hover:not(.disabled) {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #000;
   }
 
   &.disabled {
-    opacity: 0.4;
+    opacity: 0.35;
     cursor: default;
   }
 }
@@ -902,20 +941,20 @@ const createNewBlankPresentation = () => {
   border-radius: 3px;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }
 
 .doc-title-text {
   font-size: 13px;
-  font-weight: 500;
-  color: #ffffff;
+  font-weight: 600;
+  color: #2b2b2b;
 }
 
 .doc-title-input {
   background: #fff;
   color: #333;
-  border: none;
+  border: 1px solid #c0c0c0;
   border-radius: 2px;
   padding: 2px 8px;
   font-size: 13px;
@@ -923,46 +962,56 @@ const createNewBlankPresentation = () => {
 }
 
 .ribbon-action-btn {
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #fff;
-  height: 28px;
-  padding: 0 12px;
-  border-radius: 4px;
+  background: #fff;
+  border: 1px solid #d2d0ce;
+  color: #333;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s;
 
   &:hover {
-    background: #fff;
-    color: #D83B01;
+    background: #d83b01;
+    color: #fff;
+    border-color: #d83b01;
   }
 }
 
 /* 2. Ribbon Tabs Bar */
 .ribbon-tabs-bar {
   height: 32px;
-  background-color: #faf9f8;
+  background-color: #f3f2f1;
   display: flex;
   align-items: flex-end;
   padding-left: 8px;
-  border-bottom: 1px solid #edebe9;
+  border-bottom: 1px solid #d8d6d4;
 }
 
 .file-tab-btn {
-  background-color: #C43E1C; /* Darker red-orange backstage button */
+  background-color: #D24726; /* Authentic PowerPoint Red File Tab */
   color: #fff;
   height: 30px;
-  padding: 0 16px;
+  padding: 0 18px;
   display: flex;
   align-items: center;
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: bold;
   cursor: pointer;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  margin-right: 4px;
+  transition: background 0.15s;
+
+  &:hover, &.active {
+    background-color: #B93D20;
+  }
+}
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   margin-right: 6px;
@@ -981,31 +1030,36 @@ const createNewBlankPresentation = () => {
   font-size: 12.5px;
   color: #323130;
   cursor: pointer;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  border-bottom: 2px solid transparent;
-  transition: all 0.15s;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border: 1px solid transparent;
+  border-bottom: none;
+  transition: all 0.12s;
 
   &:hover {
-    color: #D83B01;
-    background-color: #f3f2f1;
+    color: #000;
+    background-color: #edebe9;
   }
 
   &.active {
-    color: #D83B01;
+    color: #D24726;
     font-weight: 600;
-    border-bottom: 2.5px solid #D83B01;
-    background-color: #f3f2f1;
+    background-color: #f9f9f9;
+    border-color: #d8d6d4;
+    border-bottom: 2px solid #f9f9f9;
+    margin-bottom: -1px;
+    z-index: 2;
   }
 }
 
 /* 3. Ribbon Shelf */
 .ribbon-shelf {
-  height: 92px;
-  background-color: #f3f2f1;
+  height: 94px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #d8d6d4;
   display: flex;
   align-items: stretch;
-  padding: 4px 8px 3px 8px;
+  padding: 3px 8px 3px 8px;
   overflow-x: auto;
 }
 
