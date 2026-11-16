@@ -27,7 +27,7 @@ jobs:
     - name: Build Green PowerPoint Web Core (Vite)
       run: |
         cd web
-        npm ci || npm install --legacy-peer-deps
+        npm install --ignore-scripts --legacy-peer-deps
         npm run build-only
         cd ..
         ls -la web/dist/
